@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="index.css">
+    <title>Bar Chart Demo</title>
+</head>
+<body>
+    <div id="pollutant_btn">
+        <span>Select the pollutant:</span>
+    </div>
+    <div id="month_btn">
+        <span>Select the month:</span>
+    </div>
+    <div id="day_btn">
+        <span>Select the day:</span>
+    </div>
+    <div id="container"></div>
+    <link rel="stylesheet" href="https://a.amap.com/jsapi_demos/static/demo-center/css/demo-center.css"/>
+    <div class="input-card" style="width: auto;">
+        <div class="input-item">
+            <button class="btn" onclick="heatmap.show()">显示热力图</button>
+        </div>
+        <div class="input-item">
+            <button class="btn" onclick="heatmap.hide()">关闭热力图</button>
+        </div>
+    </div>
+    <script src="//webapi.amap.com/maps?v=1.4.15&key=52d68b9e521328926a8232c371d49925"></script>
+    <script src="//a.amap.com/jsapi_demos/static/resource/heatmapData.js"></script>
+    <script src="index.js"></script>
+</body>
+</html>

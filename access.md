@@ -19,7 +19,7 @@ fetch("https://nas.tonychen.page:5006/WebDavShare/ChinaVis%202021%20Data/201708/
     })
 ```
 
-https://nas.tonychen.page:5006/WebDavShare/ChinaVisa%202021%20Data/<file path>
+https://nas.tonychen.page:5006/WebDavShare/ChinaVisa%202021%20Data/ \<file path>
 
 Username: share
 Password: 123456

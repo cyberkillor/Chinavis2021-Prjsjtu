@@ -1,15 +1,15 @@
 'use strict';
 
-var pollutant, month, day;
+let pollutant, month, day;
 
 function generatePollutantBtn() {
     let pollutants = ["PM 2.5", "PM 10", "SO2", "NO2", "CO", "O3"];
 
     let div = document.querySelector("#pollutant_btn");
 
-    for (var idx in pollutants) {
+    for (let idx in pollutants) {
         let p = pollutants[idx];
-        var btn = document.createElement("input");
+        let btn = document.createElement("input");
         btn.type = "radio";
         btn.name = "pollutant";
         btn.id = p;
@@ -21,7 +21,7 @@ function generatePollutantBtn() {
             fetchData()
         });
         
-        var label = document.createElement("label");
+        let label = document.createElement("label");
         label.htmlFor = p;
         label.textContent = p;
 
@@ -40,9 +40,9 @@ function generateMonthBtn() {
 
     let div = document.querySelector("#month_btn");
 
-    for (var idx in months) {
+    for (let idx in months) {
         let m = months[idx];
-        var btn = document.createElement("input");
+        let btn = document.createElement("input");
         btn.type = "radio"
         btn.name = "month";
         btn.id = m;
@@ -54,7 +54,7 @@ function generateMonthBtn() {
             fetchData()
         });
         
-        var label = document.createElement("label");
+        let label = document.createElement("label");
         label.htmlFor = m;
         label.textContent = m;
         
@@ -67,8 +67,8 @@ function generateMonthBtn() {
 function generateDayBtn() {
     let div = document.querySelector("#day_btn");
 
-    for (var d = 1; d <= 31; d++) {
-        var btn = document.createElement("input");
+    for (let d = 1; d <= 31; d++) {
+        let btn = document.createElement("input");
         btn.type = "radio"
         btn.name = "day";
         btn.id = String(d).padStart(2, '0');
@@ -80,7 +80,7 @@ function generateDayBtn() {
             fetchData()
         });
         
-        var label = document.createElement("label");
+        let label = document.createElement("label");
         label.htmlFor = d;
         label.textContent = d;
         
@@ -98,7 +98,7 @@ function fetchData() {
         return null;
     }
 
-    var headers = new Headers();
+    let headers = new Headers();
     let username = "share";
     let password = "123456";
 
@@ -108,9 +108,9 @@ function fetchData() {
     fetch(url, {headers: headers})
         .then(r => r.text())
         .then(t => {
-            var data = t.split("\n");
+            let data = t.split("\n");
             data.shift();
-            var heatmapData = [];
+            let heatmapData = [];
             data.forEach(d => {
                 d = d.split(",");
                 if (d.length > 1) {
@@ -127,7 +127,7 @@ function fetchData() {
 
 // https://lbs.amap.com/demo/javascript-api/example/selflayer/heatmap
 function createMap(data) {
-    var map = new AMap.Map("container", {
+    let map = new AMap.Map("container", {
         resizeEnable: true,
         center: [121.4737, 31.2304],
         zoom: 10
@@ -151,7 +151,7 @@ function createMap(data) {
     其中 key 表示插值的位置, 0-1
     value 为颜色值
     */
-    var heatmap;
+    let heatmap;
     map.plugin(["AMap.Heatmap"], function () {
         //初始化heatmap对象
         heatmap = new AMap.Heatmap(map, {
@@ -178,7 +178,7 @@ function createMap(data) {
     
     //判断浏览区是否支持canvas
     function isSupportCanvas() {
-        var elem = document.createElement('canvas');
+        let elem = document.createElement('canvas');
         return !!(elem.getContext && elem.getContext('2d'));
     }
 }

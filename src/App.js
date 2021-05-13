@@ -7,6 +7,9 @@ import Footer from "./components/Footer"
 import About from "./components/About"
 import {BrowserRouter, Route} from 'react-router-dom'
 import ChinaMap from "./components/ChinaMap";
+import HeatMap from "./components/HeatMap";
+import HMgo from "./components/HMgo";
+import {asyncComponent} from "./asyncComponent";
 
 function App() {
   // const name = 'Victor' {name}
@@ -85,6 +88,9 @@ function App() {
         )
     }
 
+    const hmgo = asyncComponent(() => import('./components/HMgo'));
+    const heatmap = asyncComponent(() => import('./components/HeatMap'));
+
   return (
     <BrowserRouter>
     <div className='parent'>
@@ -106,9 +112,16 @@ function App() {
                 </>
             )} />
             <Route path='/about' component={About} />
+            <Route path='/heatMap' component={hmgo} />
             <Footer />
         </div>
-        <ChinaMap />
+
+        <Route path='/' exact render={(props) => (
+            <>
+                <ChinaMap />
+            </>
+        )} />
+        <Route path='/heatMap' component={heatmap} />
     </div>
     </BrowserRouter>
   );

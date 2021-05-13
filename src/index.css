@@ -119,38 +119,15 @@ footer {
   align-self: flex-end;
   margin-left: auto;
 }
-.btn-hm {
-  display: inline-block;
-  font-weight: 400;
-  text-align: center;
-  white-space: nowrap;
-  vertical-align: middle;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-  border: 1px solid transparent;
-  transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out;
-  background-color: transparent;
-  background-image: none;
-  color: #25A5F7;
-  border-color: #25A5F7;
-  padding: .25rem .5rem;
-  line-height: 1.5;
-  border-radius: 1rem;
-  -webkit-appearance: button;
-  cursor:pointer;
+
+.heatmapContainer{
+  align-self: flex-end;
+  margin-left: auto;
+  height: 900px;
+  width: 1100px;
+  margin-top: 0;
 }
 
-.btn-hm:hover {
-  color: #fff;
-  background-color: #25A5F7;
-  border-color: #25A5F7
-}
-
-.btn-hm:hover {
-  text-decoration: none
-}
 .input-item {
   position: relative;
   display: -ms-flexbox;

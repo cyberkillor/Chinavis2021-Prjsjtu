@@ -1,4 +1,7 @@
 import {Link} from 'react-router-dom'
+import DynamicScript from "./DynamicScript";
+
+
 
 const HMgo = () => {
     return (

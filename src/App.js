@@ -121,6 +121,7 @@ function App() {
                 <ChinaMap />
             </>
         )} />
+
         <Route path='/heatMap' component={heatmap} />
     </div>
     </BrowserRouter>

@@ -22,6 +22,7 @@ body {
   border: 1px solid steelblue;
   padding: 30px;
   border-radius: 5px;
+  max-height: 900px;
 }
 
 .header {
@@ -225,4 +226,20 @@ footer {
 .input-text {
   line-height: 2rem;
   margin-right: 2rem;
+}
+input[type=checkbox], input[type=radio] {
+  box-sizing: border-box;
+  padding: 0;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0 0.5rem 0 0;
+}
+input{
+  margin: 0;
+  font-family: inherit;
+  font-size: inherit;
+  line-height: inherit;
+  overflow: visible;
+  text-transform: none
 }

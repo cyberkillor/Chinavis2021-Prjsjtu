@@ -1,21 +1,18 @@
 import {Link} from 'react-router-dom'
-import DynamicScript from "./DynamicScript";
-
-
 
 const HMgo = () => {
     return (
         <div>
+            <span>Select the pollutant:</span>
             <div id="pollutant_btn">
-                <span>Select the pollutant:</span>
             </div>
             <br />
+            <span>Select the month:</span>
             <div id="month_btn">
-                <span>Select the month:</span>
             </div>
             <br />
+            <span>Select the day:</span>
             <div id="day_btn">
-                <span>Select the day:</span>
             </div>
 
             <Link to='/'>Back to Main Page</Link>

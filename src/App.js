@@ -7,13 +7,9 @@ import Footer from "./components/Footer"
 import About from "./components/About"
 import {BrowserRouter, Route} from 'react-router-dom'
 import ChinaMap from "./components/ChinaMap";
-import HeatMap from "./components/HeatMap";
-import HMgo from "./components/HMgo";
 import {asyncComponent} from "./asyncComponent";
 
 function App() {
-  // const name = 'Victor' {name}
-  // const x = true  {x ? 'Yes' : 'No'}
     const [showAddTask, setShowAddTask] = useState(false)
     const [tasks, setTasks] = useState([])
 
@@ -122,7 +118,7 @@ function App() {
             </>
         )} />
 
-        <Route path='/heatMap' component={heatmap} />
+        <Route path='/heatMap' component={heatmap}/>
     </div>
     </BrowserRouter>
   );

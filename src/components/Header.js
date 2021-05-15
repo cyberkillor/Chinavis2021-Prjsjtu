@@ -10,7 +10,7 @@ const Header = (props) => {
             <h1>
                 {props.title}
             </h1>
-            {location.pathname === '/' && <Button
+            {location.pathname === '/main' && <Button
                 color={props.showAdd ? 'red':'green'}
                 text={props.showAdd ? 'CLOSE' : 'ADD'}
                 onClick={props.onAdd}
@@ -19,7 +19,7 @@ const Header = (props) => {
     )
 }
 
-// CSS in JS
+// css in JS
 // style={headingStyle}
 // const headingStyle = {
 //     color: 'red',

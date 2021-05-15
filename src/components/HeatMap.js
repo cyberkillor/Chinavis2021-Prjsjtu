@@ -2,12 +2,12 @@ import { useState, useEffect } from "react"
 import {Map} from "react-amap"
 import Heatmap from "react-amap-plugin-heatmap"
 
-const visible = true;
-const radius = 25;
-const resizeEnable = true;
-const center = [121.4737, 31.2304];
-const opacity = [0, 0.8];
-const zoom = 10;
+let visible = true;
+let radius = 25;
+let resizeEnable = true;
+let center = [121.4737, 31.2304];
+let opacity = [0, 0.8];
+let zoom = 10;
 let dataSet = {
     data: [],
     max: 1000
@@ -167,7 +167,6 @@ const HeatMap = () => {
         center,
         dataSet
     }
-
 
     return (
         <div className='heatmapContainer' key={data.max}>

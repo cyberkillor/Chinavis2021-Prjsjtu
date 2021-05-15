@@ -5,9 +5,11 @@ import {useState, useEffect} from 'react'
 import AddTask from "./components/AddTask"
 import Footer from "./components/Footer"
 import About from "./components/About"
-import {BrowserRouter, Route} from 'react-router-dom'
+import {BrowserRouter, Route, Router, Redirect, Switch} from 'react-router-dom'
 import ChinaMap from "./components/ChinaMap";
 import {asyncComponent} from "./asyncComponent";
+import Cover from "./components/Cover";
+import './index.css'
 
 function App() {
     const [showAddTask, setShowAddTask] = useState(false)
@@ -89,12 +91,11 @@ function App() {
 
   return (
     <BrowserRouter>
-    <div className='parent'>
-        <div className='container'>
-          <Header  onAdd={() => setShowAddTask(!showAddTask)} showAdd={showAddTask} />
-
-            <Route path='/' exact render={(props) => (
-                <>
+        <Route path='/main' exact render={(props) => (
+            <>
+            <div className='parent'>
+                <div className='container'>
+                    <Header  onAdd={() => setShowAddTask(!showAddTask)} showAdd={showAddTask} />
                     {showAddTask &&
                     <AddTask onAdd={addTask} />
                     }
@@ -105,21 +106,43 @@ function App() {
                         />
                         :
                         'No Tasks To Show'}
-                </>
-            )} />
-            <Route path='/about' component={About} />
-            <Route path='/heatMap' component={hmgo} />
-            <Footer />
-        </div>
-
-        <Route path='/' exact render={(props) => (
-            <>
+                    <Footer />
+                </div>
                 <ChinaMap />
+            </div>
             </>
         )} />
 
-        <Route path='/heatMap' component={heatmap}/>
-    </div>
+        <Route path='/main/about' exact render={(props) => (
+            <>
+                <div className='parent'>
+                    <div className='container'>
+                        <About />
+                        <Footer />
+                    </div>
+                    <ChinaMap />
+                </div>
+            </>
+        )} />
+
+        <Route path='/main/heatMap' exact render={(props) => (
+            <>
+                <div className='parent'>
+                    <div className='container'>
+                        <Header  onAdd={() => setShowAddTask(!showAddTask)} showAdd={showAddTask} />
+                        <Route path='/main/heatMap' component={hmgo} />
+                        <Footer />
+                    </div>
+
+                    <Route path='/main/heatMap' component={heatmap}/>
+                </div>
+            </>
+        )} />
+        <Route path='/' exact render={(props) => (
+            <>
+                <Cover />
+            </>
+        )} />
     </BrowserRouter>
   );
 }

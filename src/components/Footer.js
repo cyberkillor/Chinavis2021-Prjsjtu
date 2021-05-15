@@ -5,11 +5,11 @@ const Footer = () => {
     return (
         <footer>
             <p>Chinavis &copy; 2021</p>
-            <Route path='/'>
-                <Link to='/heatMap'>HeatMap</Link>
+            <Route path='/main'>
+                <Link to='/main/heatMap'>HeatMap</Link>
             </Route>
             <br />
-            <Link to="/about">About</Link>
+            <Link to="/main/about">About</Link>
         </footer>
     )
 }

@@ -23,6 +23,12 @@
       "day": "2021-6-21",
       "reminder": true,
       "id": 5
+    },
+    {
+      "text": "深圳",
+      "day": "2021-6-25",
+      "reminder": false,
+      "id": 6
     }
   ]
 }

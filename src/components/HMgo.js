@@ -15,7 +15,7 @@ const HMgo = () => {
             <div id="day_btn">
             </div>
 
-            <Link to='/'>Back to Main Page</Link>
+            <Link to='/main'>Back to Main Page</Link>
         </div>
     )
 }

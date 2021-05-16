@@ -66,7 +66,7 @@ def getCity(longitude: float, latitude: float):
     if jsonData['status'] == '1':
         c = jsonData['regeocode']['addressComponent']['city']
         if c == []:
-            c = jsonData['regeocode']['addressComponent']['province']
+            c = jsonData['regeocode']['addressComponent']['district']
         city['city'] = c
         city['province'] = jsonData['regeocode']['addressComponent']['province']
         city['citycode'] = jsonData['regeocode']['addressComponent']['citycode']

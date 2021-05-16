@@ -102,7 +102,7 @@ if __name__ == "__main__":
                     maxDay = 29 if year == 2016 else 28
                 if month in [4, 6, 9, 11]:
                     maxDay = 30
-                for day in (1, maxDay + 1):
+                for day in range(1, maxDay + 1):
                     print(f"Parsing file for {year}-{month}-{day}")
                     parseFile(year, month, day)
                     print(f"{year}-{month}-{day} saved to database")

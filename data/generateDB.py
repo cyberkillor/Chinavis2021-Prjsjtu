@@ -67,6 +67,8 @@ def getCity(longitude: float, latitude: float):
         c = jsonData['regeocode']['addressComponent']['city']
         if c == []:
             c = jsonData['regeocode']['addressComponent']['district']
+            if c == []:
+                c = None
         city['city'] = c
         city['province'] = jsonData['regeocode']['addressComponent']['province']
         city['citycode'] = jsonData['regeocode']['addressComponent']['citycode']
@@ -78,6 +80,7 @@ def getCity(longitude: float, latitude: float):
             }
         cur.execute("SELECT * FROM cities WHERE citycode=?", [city['citycode']])
         if cur.fetchone() is None:
+            print(city)
             cur.execute("INSERT INTO cities VALUES(:citycode, :city, :province)", city)
         cur.execute("INSERT INTO coordinates VALUES(?, ?, ?)", [city['citycode'], latitude, longitude])
         con.commit()

@@ -23,6 +23,7 @@ def parseFile(year, month, day, hour=None):
         print("Parsing line {0}".format(idx), end="\r", flush=True)
         idx += 1
         if len(row) > 1:
+            getCity(float(row[12]), float(row[11]))
             weather.append([
                 None,
                 year,
@@ -50,7 +51,7 @@ def parseFile(year, month, day, hour=None):
 
 
 def getCity(longitude: float, latitude: float):
-    cur.execute("SELECT citycode FROM coordinates WHERE lon = ? AND lat = ?", [longitude, latitude])
+    cur.execute("SELECT adcode FROM coordinates WHERE lon = ? AND lat = ?", [longitude, latitude])
     tmp = cur.fetchone()
     if tmp is not None:
         return tmp[0]
@@ -71,20 +72,20 @@ def getCity(longitude: float, latitude: float):
                 c = None
         city['city'] = c
         city['province'] = jsonData['regeocode']['addressComponent']['province']
-        city['citycode'] = jsonData['regeocode']['addressComponent']['citycode']
-        if city['citycode'] == []:
+        city['adcode'] = jsonData['regeocode']['addressComponent']['adcode']
+        if city['adcode'] == [] or city['adcode'] == "900000":
             city = {
                 'city': "ERROR",
                 'province': "ERROR",
-                'citycode': "000000"
+                'adcode': "000000"
             }
-        cur.execute("SELECT * FROM cities WHERE citycode=?", [city['citycode']])
+        cur.execute("SELECT * FROM cities WHERE adcode=?", [city['adcode']])
         if cur.fetchone() is None:
             print(city)
-            cur.execute("INSERT INTO cities VALUES(:citycode, :city, :province)", city)
-        cur.execute("INSERT INTO coordinates VALUES(?, ?, ?)", [city['citycode'], latitude, longitude])
+            cur.execute("INSERT INTO cities VALUES(:adcode, :city, :province)", city)
+        cur.execute("INSERT INTO coordinates VALUES(?, ?, ?)", [city['adcode'], latitude, longitude])
         con.commit()
-        return city['citycode']
+        return city['adcode']
     else:
         raise LookupError("Location not found for ({0}, {1})".format(longitude, latitude))
 

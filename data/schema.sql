@@ -15,7 +15,7 @@ CREATE TABLE weatherdata(
     hour INT,
     lat FLOAT,
     lon FLOAT,
-    city char[6] REFERENCES cities(citycode),
+    city char[6] REFERENCES cities(adcode),
     pm25 FLOAT,
     pm10 FLOAT,
     o3 FLOAT,
@@ -30,13 +30,13 @@ CREATE TABLE weatherdata(
 );
 
 CREATE TABLE cities(
-    citycode char[6] PRIMARY KEY,
+    adcode char[6] PRIMARY KEY,
     city char[20],
     province char[20]
 );
 
 CREATE TABLE coordinates(
-    citycode char[6] REFERENCES cities(citycode),
+    adcode char[6] REFERENCES cities(adcode),
     lat FLOAT,
     lon FLOAT
 );

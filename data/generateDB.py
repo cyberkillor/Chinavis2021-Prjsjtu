@@ -18,10 +18,10 @@ def parseFile(year, month, day, hour=None):
     data = csv.reader(r.text.splitlines(), delimiter=',')
     next(data, None)
     weather = []
-    idx = 1
+    # idx = 1
     for row in data:
-        print("Parsing line {0}".format(idx), end="\r", flush=True)
-        idx += 1
+        # print("Parsing line {0}".format(idx), end="\r", flush=True)
+        # idx += 1
         if len(row) > 1:
             getCity(float(row[12]), float(row[11]))
             weather.append([
@@ -103,6 +103,8 @@ if __name__ == "__main__":
                 if month in [4, 6, 9, 11]:
                     maxDay = 30
                 for day in range(1, maxDay + 1):
+                    if year < 2014 or (year == 2014 and month < 3) or (year == 2014 and month == 3 and day < 20):
+                        continue
                     print(f"Parsing file for {year}-{month}-{day}")
                     parseFile(year, month, day)
                     print(f"{year}-{month}-{day} saved to database")

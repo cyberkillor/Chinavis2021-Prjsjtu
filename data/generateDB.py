@@ -7,6 +7,13 @@ import csv
 # For how to use sqlite3 with python, check https://docs.python.org/3/library/sqlite3.html
 ######################
 
+matches = {}
+
+
+def preloadMatches():
+    for row in cur.execute("SELECT * FROM coordinates"):
+        matches[(row[1], row[2])] = row[0]
+
 
 def parseFile(year, month, day, hour=None):
     if hour is None:
@@ -51,6 +58,8 @@ def parseFile(year, month, day, hour=None):
 
 
 def getCity(longitude: float, latitude: float):
+    if (latitude, longitude) in matches:
+        return matches[(latitude, longitude)]
     cur.execute("SELECT adcode FROM coordinates WHERE lon = ? AND lat = ?", [longitude, latitude])
     tmp = cur.fetchone()
     if tmp is not None:
@@ -95,6 +104,12 @@ if __name__ == "__main__":
         con = sqlite3.connect("data.db")
         cur = con.cursor()
 
+        preloadMatches()
+
+        y = 2014
+        m = 8
+        d = 26
+
         for year in range(2013, 2019):
             for month in range(1, 13):
                 maxDay = 31
@@ -103,7 +118,7 @@ if __name__ == "__main__":
                 if month in [4, 6, 9, 11]:
                     maxDay = 30
                 for day in range(1, maxDay + 1):
-                    if year < 2014 or (year == 2014 and month < 3) or (year == 2014 and month == 3 and day < 20):
+                    if year < y or (year == y and month < m) or (year == y and month == m and day < d):
                         continue
                     print(f"Parsing file for {year}-{month}-{day}")
                     parseFile(year, month, day)

@@ -106,23 +106,23 @@ if __name__ == "__main__":
 
         preloadMatches()
 
-        y = 2014
-        m = 8
-        d = 26
+        # y = 2014
+        # m = 8
+        # d = 26
+
+        month = 1
 
         for year in range(2013, 2019):
-            for month in range(1, 13):
-                maxDay = 31
-                if month == 2:
-                    maxDay = 29 if year == 2016 else 28
-                if month in [4, 6, 9, 11]:
-                    maxDay = 30
-                for day in range(1, maxDay + 1):
-                    if year < y or (year == y and month < m) or (year == y and month == m and day < d):
-                        continue
-                    print(f"Parsing file for {year}-{month}-{day}")
-                    parseFile(year, month, day)
-                    print(f"{year}-{month}-{day} saved to database")
+            for day in range(1, 32):
+                # if year < y or (year == y and month < m) or (year == y and month == m and day < d):
+                    # continue
+
+                for hour in range(24):
+                    print(f"Parsing file for {year}-{month}-{day} {hour}")
+                    parseFile(year, month, day, hour)
+                    print(f"{year}-{month}-{day} {hour} saved to database")
+
+                
 
         con.close()
 

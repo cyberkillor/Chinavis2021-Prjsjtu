@@ -106,9 +106,10 @@ if __name__ == "__main__":
 
         preloadMatches()
 
-        # y = 2014
+        y = 2015
         # m = 8
-        # d = 26
+        d = 25
+        h = 14
 
         month = 1
 
@@ -118,6 +119,8 @@ if __name__ == "__main__":
                     # continue
 
                 for hour in range(24):
+                    if year < y or (year == y and day < d) or (year == y and day == d and hour < h):
+                        continue
                     print(f"Parsing file for {year}-{month}-{day} {hour}")
                     parseFile(year, month, day, hour)
                     print(f"{year}-{month}-{day} {hour} saved to database")

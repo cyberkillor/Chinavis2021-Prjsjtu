@@ -88,6 +88,7 @@ function App() {
 
     const hmgo = asyncComponent(() => import('./components/HMgo'));
     const heatmap = asyncComponent(() => import('./components/HeatMap'));
+    const htgo = asyncComponent(() => import('./components/HGgo'));
 
   return (
     <BrowserRouter>
@@ -141,6 +142,12 @@ function App() {
         <Route path='/' exact render={(props) => (
             <>
                 <Cover />
+            </>
+        )} />
+        <Route path='/main/histogram' exact render={(props) => (
+            <>
+
+                <Route path='/main/histogram' component={htgo}/>
             </>
         )} />
     </BrowserRouter>

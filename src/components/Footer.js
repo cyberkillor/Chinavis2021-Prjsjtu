@@ -7,6 +7,8 @@ const Footer = () => {
             <p>Chinavis &copy; 2021</p>
             <Route path='/main'>
                 <Link to='/main/heatMap'>HeatMap</Link>
+                <br/>
+                <Link to='/main/histogram'>Histogram</Link>
             </Route>
             <br />
             <Link to="/main/about">About</Link>

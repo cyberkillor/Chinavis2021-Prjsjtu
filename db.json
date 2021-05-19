@@ -1,22 +1,10 @@
 {
   "tasks": [
     {
-      "id": 2,
-      "text": "上海 闵行",
-      "day": "2021-5-11",
-      "reminder": false
-    },
-    {
       "id": 3,
       "text": "杭州西湖",
       "day": "2021-4-30",
       "reminder": true
-    },
-    {
-      "text": "杭州",
-      "day": "2021-5-7 16:30",
-      "reminder": true,
-      "id": 4
     },
     {
       "text": "苏州",
@@ -29,6 +17,12 @@
       "day": "2021-6-25",
       "reminder": false,
       "id": 6
+    },
+    {
+      "text": "dsgsr",
+      "day": "2021-12",
+      "reminder": true,
+      "id": 7
     }
   ]
 }

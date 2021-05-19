@@ -24,7 +24,7 @@ class Cover extends React.Component {
                         </ul>
                     </div>
                     <br />
-                    <Link to='/main' id='main-go'> Go Main</Link>
+                    <Link to='/main' class='main-go'> Go Main</Link>
                 </div>
             </div>
         )

@@ -124,7 +124,7 @@
 a{
 	text-decoration: none;
 }
-#main-go{
+.main-go{
 	position: fixed;
 	bottom: 0;
 	right: 0;

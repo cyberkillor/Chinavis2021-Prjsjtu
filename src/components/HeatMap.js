@@ -9,8 +9,7 @@ let center = [121.4737, 31.2304];
 let opacity = [0, 0.8];
 let zoom = 10;
 let dataSet = {
-    data: [],
-    max: 1000
+    data: []
 };
 
 const HeatMap = () => {

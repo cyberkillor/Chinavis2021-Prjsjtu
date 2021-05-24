@@ -209,6 +209,10 @@ let username = "share";
 let password = "123456";
 
 headers.append('Authorization', 'Basic ' + btoa(username + ':' + password));
+
+let pollutant, month, day;
+let url = `https://nas.tonychen.page:5006/WebDavShare/ChinaVis%202021%20Data/${month}/CN-Reanalysis-daily-${month}${day}00.csv`;
+
 fetch("https://nas.tonychen.page:5006/WebDavShare/ChinaVis%202021%20Data/201708/CN-Reanalysis-daily-2017083100.csv", {headers: headers})
     .then(r => r.text())
     .then(t => {

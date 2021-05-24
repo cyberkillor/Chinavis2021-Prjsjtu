@@ -10,6 +10,7 @@ import ChinaMap from "./components/ChinaMap";
 import {asyncComponent} from "./asyncComponent";
 import Cover from "./components/Cover";
 import './index.css'
+import MainPage from "./components/MainPage";
 
 function App() {
     const [showAddTask, setShowAddTask] = useState(false)
@@ -89,6 +90,7 @@ function App() {
     const hmgo = asyncComponent(() => import('./components/HMgo'));
     const heatmap = asyncComponent(() => import('./components/HeatMap'));
     const htgo = asyncComponent(() => import('./components/HGgo'));
+    const mainpage = asyncComponent(() => import('./components/MainPage'));
 
   return (
     <BrowserRouter>
@@ -148,6 +150,88 @@ function App() {
             <>
 
                 <Route path='/main/histogram' component={htgo}/>
+            </>
+        )} />
+
+        <Route path='/test_main' exact render={(props) => (
+            <>
+                <div id='dirty-selector'>
+                    <div className="input-item">
+                        <button className="btn" >PM<sub>2.5</sub></button>
+                    </div>
+                    <div className="input-item">
+                        <button className="btn" >PM<sub>10</sub></button>
+                    </div>
+                    <div className="input-item">
+                        <button className="btn" >SO<sub>2</sub></button>
+                    </div>
+                    <div className="input-item">
+                        <button className="btn" >NO<sub>2</sub></button>
+                    </div>
+                    <div className="input-item">
+                        <button className="btn" >CO</button>
+                    </div>
+                    <div className="input-item">
+                        <button className="btn" >O<sub>3</sub></button>
+                    </div>
+                </div>
+
+                <div id="mode-selector">
+                    <select>
+                        <option value="2013">2013</option>
+                        <option value="2014">2014</option>
+                        <option value="2015">2015</option>
+                        <option value="2016">2016</option>
+                        <option value="2017">2017</option>
+                        <option value="2018">2018</option>
+                    </select>
+                    <select>
+                        <option value="DAY">DAY</option>
+                        <option value="HOUR">HOUR</option>
+                    </select>
+                </div>
+
+                <div id='month-selector'>
+                    <ul className="time-horizontal">
+                        <li>
+                            <button className="btn-m">1</button>
+                        </li>
+                        <li>
+                            <button className="btn-m">2</button>
+                        </li>
+                        <li>
+                            <button className="btn-m">3</button>
+                        </li>
+                        <li>
+                            <button className="btn-m">4</button>
+                        </li>
+                        <li>
+                            <button className="btn-m">5</button>
+                        </li>
+                        <li>
+                            <button className="btn-m">6</button>
+                        </li>
+                        <li>
+                            <button className="btn-m">7</button>
+                        </li>
+                        <li>
+                            <button className="btn-m">8</button>
+                        </li>
+                        <li>
+                            <button className="btn-m">9</button>
+                        </li>
+                        <li>
+                            <button className="btn-m">10</button>
+                        </li>
+                        <li>
+                            <button className="btn-m">11</button>
+                        </li>
+                        <li>
+                            <button className="btn-m">12</button>
+                        </li>
+                    </ul>
+                </div>
+                <Route path='/test_main' component={mainpage}/>
             </>
         )} />
     </BrowserRouter>

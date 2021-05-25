@@ -131,7 +131,8 @@ const MainPage = () => {
             <Map>
                 <Heatmap {...pluginProps} />
             </Map>
-             {/*<ReactAMAP.Map amapkey={'ecb9288ffdad7c96ea95abae13789da7'} events={ {created: mapCreatedHandler} }/>*/}
+             {/*<ReactAMAP.Map amapkey={'ecb9288ffdad7c96ea95abae13789da7'} events={ {
+                 : mapCreatedHandler} }/>*/}
         </div>
     )
 }

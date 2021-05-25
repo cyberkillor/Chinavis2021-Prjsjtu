@@ -149,7 +149,7 @@ const HeatMap = () => {
                 console.log(dataSet.max);
                 // return heatmapData;
                 setData(dataSet);
-                console.log(dataSet.key, data.max);
+                // console.log(dataSet.key, data.max);
             })
     }
 

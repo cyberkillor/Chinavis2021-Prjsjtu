@@ -36,6 +36,7 @@ const HeatMap = () => {
 
             btn.addEventListener("change", e => {
                 pollutant = e.target.value;
+                // console.log(pollutant)
                 console.log(e.target.id);
                 fetchData()
             });

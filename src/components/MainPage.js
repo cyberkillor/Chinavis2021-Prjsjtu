@@ -28,10 +28,10 @@ const MainPage = () => {
         // console.log(btns);
         // console.log(btns.length);
         for(let i = 0; i < btns.length; i++){
-            btns[i].value = pollutants[i];
+            btns[i].idx = i;
             btns[i].addEventListener("click", e => {
                 // if(e.target.innerHTML === "")
-                pollutant = e.target.value;
+                pollutant = e.target.idx;
                 //console.log(e.target.value);
                 fetchData()
             });
@@ -69,7 +69,7 @@ const MainPage = () => {
         day = document.getElementById("day-select").value;
         year = document.getElementById("year-select").value;
         mode = document.getElementById("mode-select").value;
-        console.log(pollutant, year+month, day, mode);
+        console.log(pollutants[pollutant], year+month, day, mode);
         if (pollutant === undefined || month === undefined || day === undefined || year ==- undefined || mode === undefined) {
             return null;
         }
@@ -95,6 +95,7 @@ const MainPage = () => {
                     data: [],
                     max: 1000
                 };
+
                 data.forEach(d => {
                     d = d.split(",");
                     if (d.length > 1) {
@@ -121,7 +122,7 @@ const MainPage = () => {
     const pluginProps = {
         radius: 30,
         opacity: [0, 0.8],
-        zooms: [6, 10],
+        zooms: [4, 18],
         dataSet: data
     }
     return (

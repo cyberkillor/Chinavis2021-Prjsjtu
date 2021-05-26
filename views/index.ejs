@@ -5,26 +5,27 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Main Page</title>
+    <link rel="stylesheet" href="stylesheets/style.css"/>
 </head>
 <body>
     <div id='dirty-selector'>
-        <div className="input-item">
-            <button className="btn" >PM<sub>2.5</sub></button>
+        <div class="input-item">
+            <button class="btn-dirt" >PM<sub>2.5</sub></button>
         </div>
-        <div className="input-item">
-            <button className="btn" >PM<sub>10</sub></button>
+        <div class="input-item">
+            <button class="btn-dirt" >PM<sub>10</sub></button>
         </div>
-        <div className="input-item">
-            <button className="btn" >SO<sub>2</sub></button>
+        <div class="input-item">
+            <button class="btn-dirt" >SO<sub>2</sub></button>
         </div>
-        <div className="input-item">
-            <button className="btn" >NO<sub>2</sub></button>
+        <div class="input-item">
+            <button class="btn-dirt" >NO<sub>2</sub></button>
         </div>
-        <div className="input-item">
-            <button className="btn" >CO</button>
+        <div class="input-item">
+            <button class="btn-dirt" >CO</button>
         </div>
-        <div className="input-item">
-            <button className="btn" >O<sub>3</sub></button>
+        <div class="input-item">
+            <button class="btn-dirt" >O<sub>3</sub></button>
         </div>
     </div>
 
@@ -77,55 +78,57 @@
     </div>
 
     <div id='month-selector'>
-        <ul className="time-horizontal">
+        <ul class="time-horizontal">
             <li>
-                <button className="btn-m" value='01'>1</button>
+                <button class="btn-m" value='01'>1</button>
             </li>
             <li>
-                <button className="btn-m" value='02'>2</button>
+                <button class="btn-m" value='02'>2</button>
             </li>
             <li>
-                <button className="btn-m" value='03'>3</button>
+                <button class="btn-m" value='03'>3</button>
             </li>
             <li>
-                <button className="btn-m" value='04'>4</button>
+                <button class="btn-m" value='04'>4</button>
             </li>
             <li>
-                <button className="btn-m" value='05'>5</button>
+                <button class="btn-m" value='05'>5</button>
             </li>
             <li>
-                <button className="btn-m" value='06'>6</button>
+                <button class="btn-m" value='06'>6</button>
             </li>
             <li>
-                <button className="btn-m" value='07'>7</button>
+                <button class="btn-m" value='07'>7</button>
             </li>
             <li>
-                <button className="btn-m" value='08'>8</button>
+                <button class="btn-m" value='08'>8</button>
             </li>
             <li>
-                <button className="btn-m" value='09'>9</button>
+                <button class="btn-m" value='09'>9</button>
             </li>
             <li>
-                <button className="btn-m" value='10'>10</button>
+                <button class="btn-m" value='10'>10</button>
             </li>
             <li>
-                <button className="btn-m" value='11'>11</button>
+                <button class="btn-m" value='11'>11</button>
             </li>
             <li>
-                <button className="btn-m" value='12'>12</button>
+                <button class="btn-m" value='12'>12</button>
             </li>
         </ul>
     </div>
+    <div id='info'></div>
     <div id="container"></div>
-    <link rel="stylesheet" href="https://a.amap.com/jsapi_demos/static/demo-center/css/demo-center.css"/>
-    <div class="input-card" style="width: auto;">
-        <div class="input-item">
-            <button class="btn" onclick="heatmap.show()">显示热力图</button>
-        </div>
-        <div class="input-item">
-            <button class="btn" onclick="heatmap.hide()">关闭热力图</button>
-        </div>
-    </div>
+
+
+<!--    <div class="input-card" style="width: auto;">-->
+<!--        <div class="input-item">-->
+<!--            <button class="btn" onclick="heatmap.show()">显示热力图</button>-->
+<!--        </div>-->
+<!--        <div class="input-item">-->
+<!--            <button class="btn" onclick="heatmap.hide()">关闭热力图</button>-->
+<!--        </div>-->
+<!--    </div>-->
     <script src="//webapi.amap.com/maps?v=1.4.15&key=52d68b9e521328926a8232c371d49925"></script>
     <script src="javascripts/index.js"></script>
 </body>

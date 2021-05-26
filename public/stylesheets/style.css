@@ -1,8 +1,162 @@
-body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+*{
+  padding: 0;
+  margin: 0;
+}
+#container{
+  height: 100vh;
+  width: 100vw;
 }
 
-a {
-  color: #00B7FF;
+.input-item {
+  position: relative;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  -ms-flex-align: center;
+  align-items: center;
+  width: 100%;
+  height: 3rem;
+}
+.input-item>select, .input-item>input[type=text], .input-item>input[type=date] {
+  position: relative;
+  -ms-flex: 1 1 auto;
+  flex: 1 1 auto;
+  width: 1%;
+  margin-bottom: 0;
+}
+.input-item>select:not(:last-child), .input-item>input[type=text]:not(:last-child), .input-item>input[type=date]:not(:last-child) {
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0
+}
+.input-item>select:not(:first-child), .input-item>input[type=text]:not(:first-child), .input-item>input[type=date]:not(:first-child) {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0
+}
+
+#dirty-selector{
+  position: fixed;
+  top: 10px;
+  left: 10px;
+  width: 100px;
+  height: auto;
+  z-index: 10;
+}
+
+#timepicker_cointainer {
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 999;
+}
+#month-selector{
+  position: fixed;
+  bottom: 20px;
+  left: 10%;
+  z-index: 10;
+
+}
+.time-horizontal {
+  list-style-type: none;
+  border-top: 2px dashed darkblue;
+  max-width: 90vw;
+  padding: 0px;
+  margin: 0px;
+}
+
+.time-horizontal li {
+  float: left;
+  position: relative;
+  text-align: center;
+  width: 7vw;
+  padding-top: 10px;
+}
+
+.time-horizontal li b:before {
+  content: '';
+  position: absolute;
+  top: -10px;
+  left: 47%;
+  width: 12px;
+  height: 12px;
+  border: 2px solid #4c4c4c;
+  border-radius: 8px;
+  background: #4c4c4c;
+}
+
+li{
+  align-content: center;
+}
+.btn-m{
+  width: 30px;
+  height: 30px;
+  align-content: center;
+  border-radius: 15px;
+  background-color: #61dafb;
+  border-color: blueviolet;
+  transform: translateY(-25px);
+  color: white;
+}
+
+.btn-dirt {
+  display: inline-block;
+  width: 90px;
+  height: 45px;
+
+  color: #fff;
+  background: lightblue;
+  border-color: blueviolet;
+  padding: 10px 20px;
+  margin: 6px;
+  border-radius: 5px;
+  cursor: pointer;
+  text-decoration: none;
+  font-size: 15px;
+  font-family: inherit;
+}
+
+#mode-selector{
+  position: fixed;
+  bottom: 20px;
+  left: 10px;
+  width: 100px;
+  height: auto;
+  z-index: 10;
+}
+#mode-selector>select{
+  background:#fafdfe;
+  height: 30px;
+  width: 90px;
+  margin: 5px;
+  line-height:28px;
+  border:1px solid #9bc0dd;
+  border-radius: 10px;
+  -moz-border-radius:2px;
+  -webkit-border-radius:2px;
+  text-align: center;
+  text-align-last: center;
+}
+
+.btn-dirt:focus {
+  outline: none;
+  background: royalblue;
+}
+
+.btn-m:focus{
+  outline: none;
+  background: darkslateblue;
+}
+
+.btn-dirt:active {
+  transform: scale(0.95);
+}
+.btn-m:active {
+  transform: translateY(-25px) scale(0.95);
+}
+#info{
+  position: fixed;
+  color: darkblue;
+  top: 10px;
+  right: 10px;
+  z-index: 10;
 }

@@ -14,6 +14,7 @@ let map = new AMap.Map("container", {
     center: [121.4737, 31.2304],
     zoom: 5
 });
+let heatmap;
 
 bindDirt();
 let pollutant, year, month, day, mode;
@@ -22,26 +23,51 @@ function bindDirt(){
     let btns = document.getElementsByClassName("btn-dirt");
     // console.log(btns);
     // console.log(btns.length);
-    for(let i = 0; i < btns.length; i++){
-        btns[i].idx = i;
-        btns[i].addEventListener("click", e => {
-            // if(e.target.innerHTML === "")
-            pollutant = e.target.idx;
-            //console.log(e.target.value);
-            fetchData()
-        });
-    }
+    document.querySelectorAll(".btn-dirt").forEach(btn => {
+        btn.onclick = _ => {
+            pollutant = btn.value;
+            document.querySelectorAll(".btn-dirt").forEach(b => {
+                b.classList.remove("selected");
+            });
+            btn.className += " selected";
+            fetchData();
+        }
+    })
+    // for(let i = 0; i < btns.length; i++){
+    //     btns[i].idx = i;
+    //     btns[i].addEventListener("click", e => {
+    //         // if(e.target.innerHTML === "")
+    //         pollutant = e.target.idx;
+    //         document.querySelectorAll(".btn-dirt").forEach(btn => {
+    //             console.log(btn);
+    //             btn.className.replace(" selected", "");
+    //         })
+    //         e.target.className += " selected";
+    //         //console.log(e.target.value);
+    //         fetchData()
+    //     });
+    // }
 
-    btns = document.getElementsByClassName("btn-m");
+    // btns = document.getElementsByClassName("btn-m");
     // console.log(btns);
     // console.log(btns.length);
-    for(let i = 0; i < btns.length; i++){
-        btns[i].addEventListener("click", e => {
-            month = e.target.value;
-            // console.log(e.target.innerText);
-            fetchData()
-        });
-    }
+    // for(let i = 0; i < btns.length; i++){
+    //     btns[i].addEventListener("click", e => {
+    //         month = e.target.value;
+    //         // console.log(e.target.innerText);
+    //         fetchData()
+    //     });
+    // }
+    document.querySelectorAll(".btn-m").forEach(btn => {
+        btn.onclick = _ => {
+            month = btn.value;
+            document.querySelectorAll(".btn-m").forEach(b => {
+                b.classList.remove("selected");
+            });
+            btn.className += " selected";
+            fetchData();
+        }
+    })
 
     let select = document.getElementById("year-select");
     select.addEventListener('change', e => {
@@ -127,7 +153,6 @@ function createMap(data) {
     其中 key 表示插值的位置, 0-1
     value 为颜色值
     */
-    let heatmap;
     map.plugin(["AMap.Heatmap"], function () {
         //初始化heatmap对象
         heatmap = new AMap.Heatmap(map, {

@@ -158,3 +158,9 @@ function createMap(data) {
         return !!(elem.getContext && elem.getContext('2d'));
     }
 }
+pollutant_company.forEach(d => {
+    var marker = new AMap.Marker({
+        position: new AMap.LngLat(d[2], d[1])
+    });
+    map.add(marker);
+});

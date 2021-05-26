@@ -43,12 +43,6 @@
   z-index: 10;
 }
 
-#timepicker_cointainer {
-  position: fixed;
-  left: 0;
-  top: 0;
-  z-index: 999;
-}
 #month-selector{
   position: fixed;
   bottom: 20px;

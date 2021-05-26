@@ -11,17 +11,19 @@ html, body, #root, #app, #map_cointainer {
     height: 100%;
 }
 
+#root, #app, #map_cointainer {
+    width: 100%;
+    height: 0;
+}
+
 #timepicker_cointainer {
-    position: absolute;
-    z-index: 999;
+    position: fixed;
+    z-index: 99;
     text-align: center;
     font-size: 1.5em;
     font-weight: bold;
-}
-
-#timepicker_container {
-    top: 0;
-    left: 0;
+    top: 50px;
+    left: 150px;
 }
 
 #chart_container {
@@ -34,7 +36,7 @@ html, body, #root, #app, #map_cointainer {
 }
 
 #sidebar {
-    position: absolute;
+    position: fixed;
     right: 0;
     top: 0;
     z-index: 99;

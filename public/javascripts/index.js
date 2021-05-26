@@ -9,7 +9,7 @@ let dataSet = {
     data: []
 };
 
-let mmap = new AMap.Map("container", {
+let map = new AMap.Map("container", {
     resizeEnable: true,
     center: [121.4737, 31.2304],
     zoom: 5
@@ -108,11 +108,6 @@ function fetchData() {
 
 // https://lbs.amap.com/demo/javascript-api/example/selflayer/heatmap
 function createMap(data) {
-    let map = new AMap.Map("container", {
-        resizeEnable: true,
-        center: [121.4737, 31.2304],
-        zoom: 5
-    });
     
     if (!isSupportCanvas()) {
         alert('热力图仅对支持canvas的浏览器适用,您所使用的浏览器不能使用热力图功能,请换个浏览器试试~')

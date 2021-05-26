@@ -9,11 +9,17 @@ let dataSet = {
     data: []
 };
 
+let map = new AMap.Map("container", {
+    resizeEnable: true,
+    center: [121.4737, 31.2304],
+    zoom: 5
+});
+
 bindDirt();
 let pollutant, year, month, day, mode;
 
 function bindDirt(){
-    let btns = document.getElementsByClassName("btn");
+    let btns = document.getElementsByClassName("btn-dirt");
     // console.log(btns);
     // console.log(btns.length);
     for(let i = 0; i < btns.length; i++){
@@ -64,7 +70,7 @@ function fetchData() {
     }
 
     // return null;
-    month = year+month;
+    let ym = year+month;
 
     let headers = new Headers();
     let username = "share";
@@ -72,7 +78,7 @@ function fetchData() {
 
     headers.append('Authorization', 'Basic ' + btoa(username + ':' + password));
 
-    let url = `https://nas.tonychen.page:5006/WebDavShare/ChinaVis%202021%20Data/${month}/CN-Reanalysis-daily-${month}${day}00.csv`;
+    let url = `https://nas.tonychen.page:5006/WebDavShare/ChinaVis%202021%20Data/${ym}/CN-Reanalysis-daily-${ym}${day}00.csv`;
 
     console.log(url);
     fetch(url, {headers: headers})
@@ -96,17 +102,12 @@ function fetchData() {
                 }
             });
             // return heatmapData;
-            createMap(data);
+            createMap(dataSet.data);
         })
 }
 
 // https://lbs.amap.com/demo/javascript-api/example/selflayer/heatmap
 function createMap(data) {
-    let map = new AMap.Map("container", {
-        resizeEnable: true,
-        center: [121.4737, 31.2304],
-        zoom: 10
-    });
     
     if (!isSupportCanvas()) {
         alert('热力图仅对支持canvas的浏览器适用,您所使用的浏览器不能使用热力图功能,请换个浏览器试试~')

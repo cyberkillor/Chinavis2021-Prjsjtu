@@ -183,9 +183,24 @@ function createMap(data) {
         return !!(elem.getContext && elem.getContext('2d'));
     }
 }
-pollutant_company.forEach(d => {
-    var marker = new AMap.Marker({
-        position: new AMap.LngLat(d[2], d[1])
-    });
-    map.add(marker);
-});
+
+pollutant_company.active = false;
+pollutant_company.show = _ => {
+    if (pollutant_company.active === false) {
+        pollutant_company.forEach(d => {
+            var marker = new AMap.Marker({
+                position: new AMap.LngLat(d[2], d[1])
+            });
+            map.add(marker);
+        });
+        pollutant_company.active = true
+    }
+}
+pollutant_company.show()
+
+pollutant_company.hide = _ => {
+    if (pollutant_company.active === true) {
+        map.remove(map.getAllOverlays('marker'));
+    }
+    pollutant_company.active = false;
+}

@@ -1,5 +1,5 @@
 function doQuery(command) {
-    return fetch('https://34077828v5.oicp.vip/' + encodeURI(command)).then(resp => {
+    return fetch('/db/' + encodeURI(command)).then(resp => {
         if (resp.ok) {
             return resp.json();
         } else {
@@ -30,6 +30,7 @@ class CitySidebar extends React.Component {
     }
 
     setDate(newDate) {
+        console.log(newDate);
         this.setState({ date: newDate });
         if (this.state.city) {
             this.queryData(this.state.city, newDate);

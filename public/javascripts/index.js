@@ -156,6 +156,9 @@ function createMap(data) {
     其中 key 表示插值的位置, 0-1
     value 为颜色值
     */
+    if (heatmap !== undefined) {
+        heatmap.hide();
+    }
     map.plugin(["AMap.Heatmap"], function () {
         //初始化heatmap对象
         // heatmap.destroy();

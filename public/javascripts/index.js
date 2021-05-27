@@ -138,6 +138,9 @@ function createMap(data) {
     if (!isSupportCanvas()) {
         alert('热力图仅对支持canvas的浏览器适用,您所使用的浏览器不能使用热力图功能,请换个浏览器试试~')
     }
+
+    // let hs = document.getElementById("_amap_heatmap_div_");
+    // hs.remove();
     
     //详细的参数,可以查看heatmap.js的文档 http://www.patrick-wied.at/static/heatmapjs/docs.html
     //参数说明如下:
@@ -155,6 +158,8 @@ function createMap(data) {
     */
     map.plugin(["AMap.Heatmap"], function () {
         //初始化heatmap对象
+        // heatmap.destroy();
+        // heatmap.hide();
         heatmap = new AMap.Heatmap(map, {
             radius: 25, //给定半径
             opacity: [0, 0.8]

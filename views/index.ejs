@@ -132,8 +132,26 @@
             <button class="amap-btn" id="windmap-toggle" onclick="toggleWindmap()">显示风向</button>
         </div>
     </div>
+
+    <div id="citySidebarContainer"></div>
+
     <script src="//webapi.amap.com/maps?v=1.4.15&key=52d68b9e521328926a8232c371d49925"></script>
     <script src="javascripts/pollutant_company.js"></script>
     <script src="javascripts/index.js"></script>
+
+    
+	<!-- Load React. -->
+	<!-- Note: when deploying, replace "development.js" with "production.min.js". -->
+	<script src="https://unpkg.com/react@17/umd/react.development.js" crossorigin></script>
+	<script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js" crossorigin></script>
+
+	<!-- Load D3. -->
+	<script src="https://d3js.org/d3.v6.min.js" crossorigin></script>
+
+	<!-- Load our React component. -->
+	<script src="javascripts/d3chart.js"></script>
+	<script src="javascripts/chartPollutionDayCurve.js"></script>
+    <script src="javascripts/citySidebar.js"></script>
+    <script src="javascripts/indexReact.js"></script>
 </body>
 </html>

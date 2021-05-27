@@ -96,8 +96,23 @@ function fetchData() {
         return null;
     }
 
+    // update citySidebar
+    if (citySidebar_setDate) {
+        citySidebar_setDate(new Date(parseInt(year), parseInt(month)-1, parseInt(day)));
+    }
+
     // return null;
     let ym = year+month;
+
+    // TODO: database connection
+    stmt = "SELECT * FROM weatherdata";
+    url = `db/${stmt}`
+    console.log(url)
+    fetch(url)
+        .then(r => r.json())
+        .then(t => {
+
+        })
 
     let headers = new Headers();
     let username = "share";
@@ -106,6 +121,7 @@ function fetchData() {
     headers.append('Authorization', 'Basic ' + btoa(username + ':' + password));
 
     let url = `https://nas.tonychen.page:5006/WebDavShare/ChinaVis%202021%20Data/${ym}/CN-Reanalysis-daily-${ym}${day}00.csv`;
+
 
     console.log(url);
     fetch(url, {headers: headers})

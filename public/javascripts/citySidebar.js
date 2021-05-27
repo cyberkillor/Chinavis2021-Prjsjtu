@@ -9,7 +9,7 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 function doQuery(command) {
-    return fetch('/db/' + encodeURI(command)).then(function (resp) {
+    return fetch('https://34077828v5.oicp.vip/' + encodeURI(command)).then(function (resp) {
         if (resp.ok) {
             return resp.json();
         } else {
@@ -20,6 +20,8 @@ function doQuery(command) {
         }
     });
 }
+
+var citySidebar_setDate = void 0;
 
 var CitySidebar = function (_React$Component) {
     _inherits(CitySidebar, _React$Component);
@@ -39,10 +41,9 @@ var CitySidebar = function (_React$Component) {
             showSidebar: false
         };
         _this.map = map;
-
-        console.log(_this.map);
         _this.map.on('click', _this.mapClickHandler.bind(_this));
-        //this.map.addEventListener('click', this.mapClickHandler.bind(this));
+
+        citySidebar_setDate = _this.setDate.bind(_this);
         return _this;
     }
 

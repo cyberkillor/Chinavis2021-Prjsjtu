@@ -9,6 +9,8 @@ function doQuery(command) {
     })
 }
 
+let citySidebar_setDate;
+
 class CitySidebar extends React.Component {
     constructor(props) {
         super(props);
@@ -22,10 +24,9 @@ class CitySidebar extends React.Component {
             showSidebar: false,
         }
         this.map = map;
-
-        console.log(this.map);
         this.map.on('click', this.mapClickHandler.bind(this));
-        //this.map.addEventListener('click', this.mapClickHandler.bind(this));
+
+        citySidebar_setDate = this.setDate.bind(this);
     }
 
     setDate(newDate) {

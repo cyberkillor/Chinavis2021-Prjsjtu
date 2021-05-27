@@ -224,3 +224,41 @@ li{
 .btn-m {
   cursor: pointer;
 }
+
+
+#chart_container {
+  float: left;
+  width: 300px;
+}
+
+#chart_container>div {
+  margin: 10px 0;
+}
+
+#sidebar {
+  position: fixed;
+  right: 0;
+  top: 0;
+  z-index: 99;
+  width: 400px;
+  height: 100%;
+  padding: 60px 30px;
+  background: white;
+  overflow: auto;
+  box-shadow: 0 0 10px rgba(0,0,0,0.3);
+}
+
+#sidebarCloseBtn {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  z-index: 100;
+}
+
+#sidebarTitle {
+  position: absolute;
+  top: 10px;
+  left: 0;
+  width: 100%;
+  text-align: center;
+}

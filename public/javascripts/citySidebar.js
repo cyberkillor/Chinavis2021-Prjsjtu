@@ -21,13 +21,15 @@ function doQuery(command) {
     });
 }
 
-var App = function (_React$Component) {
-    _inherits(App, _React$Component);
+var citySidebar_setDate = void 0;
 
-    function App(props) {
-        _classCallCheck(this, App);
+var CitySidebar = function (_React$Component) {
+    _inherits(CitySidebar, _React$Component);
 
-        var _this = _possibleConstructorReturn(this, (App.__proto__ || Object.getPrototypeOf(App)).call(this, props));
+    function CitySidebar(props) {
+        _classCallCheck(this, CitySidebar);
+
+        var _this = _possibleConstructorReturn(this, (CitySidebar.__proto__ || Object.getPrototypeOf(CitySidebar)).call(this, props));
 
         var defaultData = [];
         defaultData.columns = [];
@@ -39,16 +41,16 @@ var App = function (_React$Component) {
             showSidebar: false
         };
         _this.map = map;
-
-        console.log(_this.map);
         _this.map.on('click', _this.mapClickHandler.bind(_this));
-        //this.map.addEventListener('click', this.mapClickHandler.bind(this));
+
+        citySidebar_setDate = _this.setDate.bind(_this);
         return _this;
     }
 
-    _createClass(App, [{
+    _createClass(CitySidebar, [{
         key: 'setDate',
         value: function setDate(newDate) {
+            console.log(newDate);
             this.setState({ date: newDate });
             if (this.state.city) {
                 this.queryData(this.state.city, newDate);
@@ -150,12 +152,7 @@ var App = function (_React$Component) {
         value: function render() {
             return React.createElement(
                 'div',
-                { id: 'app' },
-                React.createElement(
-                    'div',
-                    { id: 'timepicker_cointainer' },
-                    React.createElement(TimePicker, { defaultDate: new Date(2013, 0, 1), setDate: this.setDate.bind(this) })
-                ),
+                null,
                 this.state.showSidebar && React.createElement(
                     'div',
                     { id: 'sidebar' },
@@ -183,7 +180,7 @@ var App = function (_React$Component) {
         }
     }]);
 
-    return App;
+    return CitySidebar;
 }(React.Component);
 
-ReactDOM.render(React.createElement(App, null), document.getElementById('root'));
+ReactDOM.render(React.createElement(CitySidebar, null), document.getElementById('root'));

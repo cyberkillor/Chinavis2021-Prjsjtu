@@ -1,5 +1,5 @@
 function doQuery(command) {
-    return fetch('https://34077828v5.oicp.vip/' + encodeURI(command)).then(resp => {
+    return fetch('/db/' + encodeURI(command)).then(resp => {
         if (resp.ok) {
             return resp.json();
         } else {
@@ -9,7 +9,9 @@ function doQuery(command) {
     })
 }
 
-class App extends React.Component {
+let citySidebar_setDate;
+
+class CitySidebar extends React.Component {
     constructor(props) {
         super(props);
         let defaultData = [];
@@ -22,13 +24,13 @@ class App extends React.Component {
             showSidebar: false,
         }
         this.map = map;
-
-        console.log(this.map);
         this.map.on('click', this.mapClickHandler.bind(this));
-        //this.map.addEventListener('click', this.mapClickHandler.bind(this));
+
+        citySidebar_setDate = this.setDate.bind(this);
     }
 
     setDate(newDate) {
+        console.log(newDate);
         this.setState({ date: newDate });
         if (this.state.city) {
             this.queryData(this.state.city, newDate);
@@ -102,13 +104,7 @@ class App extends React.Component {
 
     render() {
         return (
-            <div id='app'>
-                <div id="timepicker_cointainer">
-                    <TimePicker defaultDate={new Date(2013, 0, 1)} setDate={this.setDate.bind(this)} />
-                </div>
-                {/* <div id="map_cointainer">
-                    <ReactAMAP.Map amapkey={'ecb9288ffdad7c96ea95abae13789da7'} events={{ created: this.mapCreatedHandler.bind(this), click: this.mapClickHandler.bind(this), }} />
-                </div> */}
+            <div>
                 {
                     this.state.showSidebar &&
                     <div id='sidebar'>
@@ -128,4 +124,4 @@ class App extends React.Component {
     }
 }
 
-ReactDOM.render(<App />, document.getElementById('root'));
+ReactDOM.render(<CitySidebar />, document.getElementById('root'));

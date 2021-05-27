@@ -113,8 +113,7 @@ function fetchData() {
             let data = t.split("\n");
             data.shift();
             dataSet = {
-                data: [],
-                max: 1000
+                data: []
             };
 
             data.forEach(d => {
@@ -169,10 +168,10 @@ function createMap(data) {
     if (windmap !== undefined){
         windmap.hide();
     }
-    let heatmap;
     if (heatmap !== undefined) {
         heatmap.hide();
     }
+    heatmap_switch(true);
     map.plugin(["AMap.Heatmap"], function () {
         //初始化heatmap对象
         // heatmap.destroy();
@@ -190,12 +189,11 @@ function createMap(data) {
             }
             */
         });
-        console.log(data.reduce((r, a, idx) => {
-            if (isNaN(a["count"])) { console.log(a, idx) }
-            return Math.max(r, a["count"])}, 0));
+        // console.log(data.reduce((r, a, idx) => {
+        //     if (isNaN(a["count"])) { console.log(a, idx) }
+        //     return Math.max(r, a["count"])}, 0));
         heatmap.setDataSet({
-            data: data,
-            max: data.reduce((r, a) => Math.max(r, a["count"]), 0)
+            data: data
         });
     });
     //addLayer(data, map);
@@ -289,4 +287,42 @@ pollutant_company.hide = _ => {
         map.remove(map.getAllOverlays('marker'));
     }
     pollutant_company.active = false;
+}
+
+pollutant_company.toggle = _ => {
+    if (pollutant_company.active === true) {
+        pollutant_company.hide();
+        document.querySelector("#pollutant-company-toggle").textContent = "显示污染源";
+    } else {
+        pollutant_company.show();
+        document.querySelector("#pollutant-company-toggle").textContent = "隐藏污染源";
+    }
+}
+
+heatmap_active = false
+
+function heatmap_switch(tf=null) {
+    if (tf === null) {
+        return heatmap_active;
+    }
+    if (tf) {
+        heatmap_active = true;
+        document.querySelector("#heatmap-toggle").textContent = "关闭热力图";
+    } else {
+        heatmap_active = false;
+        document.querySelector("#heatmap-toggle").textContent = "显示热力图";
+    }
+}
+
+toggleHeatmap = _ => {
+    if (heatmap === undefined) {
+        return;
+    }
+    if (heatmap_active) {
+        heatmap.hide();
+        heatmap_switch(false);
+    } else {
+        heatmap.show();
+        heatmap_switch(true);
+    }
 }

@@ -123,16 +123,10 @@
 
    <div class="input-card" style="width: auto;">
        <div class="input-item">
-            <button class="amap-btn" onclick="heatmap.show()">显示热力图</button>
+            <button class="amap-btn" id="heatmap-toggle" onclick="toggleHeatmap()">显示热力图</button>
         </div>
         <div class="input-item">
-            <button class="amap-btn" onclick="heatmap.hide()">关闭热力图</button>
-        </div>
-        <div class="input-item">
-            <button class="amap-btn" onclick="pollutant_company.show()">显示污染源</button>
-        </div>
-        <div class="input-item">
-            <button class="amap-btn" onclick="pollutant_company.hide()">隐藏污染源</button>
+            <button class="amap-btn" id="pollutant-company-toggle" onclick="pollutant_company.toggle()">隐藏污染源</button>
         </div>
         <div class="input-item">
             <button class="amap-btn" onclick="windmap.show()">显示风向</button>

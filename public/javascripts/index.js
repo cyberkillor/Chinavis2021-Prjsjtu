@@ -113,8 +113,7 @@ function fetchData() {
             let data = t.split("\n");
             data.shift();
             dataSet = {
-                data: [],
-                max: 1000
+                data: []
             };
 
             data.forEach(d => {
@@ -163,7 +162,6 @@ function createMap(data) {
     if(current_layers[3] != undefined){
         map.remove(current_layers[3]); // 因为自定义图层：风向图层 是加在current_layer[3]处的
     }
-    let heatmap;
     if (heatmap !== undefined) {
         heatmap.hide();
     }
@@ -184,12 +182,11 @@ function createMap(data) {
             }
             */
         });
-        console.log(data.reduce((r, a, idx) => {
-            if (isNaN(a["count"])) { console.log(a, idx) }
-            return Math.max(r, a["count"])}, 0));
+        // console.log(data.reduce((r, a, idx) => {
+        //     if (isNaN(a["count"])) { console.log(a, idx) }
+        //     return Math.max(r, a["count"])}, 0));
         heatmap.setDataSet({
-            data: data,
-            max: data.reduce((r, a) => Math.max(r, a["count"]), 0)
+            data: data
         });
     });
     addLayer(data, map);

@@ -21,6 +21,8 @@ function doQuery(command) {
     });
 }
 
+var citySidebar_setDate = void 0;
+
 var CitySidebar = function (_React$Component) {
     _inherits(CitySidebar, _React$Component);
 
@@ -39,10 +41,9 @@ var CitySidebar = function (_React$Component) {
             showSidebar: false
         };
         _this.map = map;
-
-        console.log(_this.map);
         _this.map.on('click', _this.mapClickHandler.bind(_this));
-        //this.map.addEventListener('click', this.mapClickHandler.bind(this));
+
+        citySidebar_setDate = _this.setDate.bind(_this);
         return _this;
     }
 

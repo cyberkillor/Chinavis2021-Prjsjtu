@@ -95,6 +95,11 @@ function fetchData() {
         return null;
     }
 
+    // update citySidebar
+    if (citySidebar_setDate) {
+        citySidebar_setDate(new Date(parseInt(year), parseInt(month)-1, parseInt(day)));
+    }
+
     // return null;
     let ym = year+month;
 

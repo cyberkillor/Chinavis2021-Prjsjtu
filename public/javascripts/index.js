@@ -15,6 +15,7 @@ let map = new AMap.Map("container", {
     zoom: 5
 });
 let heatmap;
+let windmap;
 
 bindDirt();
 let pollutant, year, month, day, mode;
@@ -157,14 +158,13 @@ function createMap(data) {
     其中 key 表示插值的位置, 0-1
     value 为颜色值
     */
-    let windmap;
     // let current_layers = map.getLayers(); 
     // console.log(current_layers[3]);
     // if(current_layers[3] != undefined){
     //     map.remove(current_layers[3]); // 因为自定义图层：风向图层 是加在current_layer[3]处的
         
     // }
-    console.log(windmap);
+    //console.log(windmap);
     if (windmap !== undefined){
         windmap.hide();
     }
@@ -196,9 +196,16 @@ function createMap(data) {
             data: data
         });
     });
-    //addLayer(data, map);
-    
-    // function addLayer(positions, map){
+
+
+    //判断浏览区是否支持canvas
+    function isSupportCanvas() {
+        let elem = document.createElement('canvas');
+        return !!(elem.getContext && elem.getContext('2d'));
+    }
+}
+
+function addLayer(data, map){
     map.plugin('AMap.CustomLayer', function() {
         let canvas = document.createElement('canvas');
         windmap = new AMap.CustomLayer(canvas, {
@@ -245,28 +252,22 @@ function createMap(data) {
         }
         windmap.render = onRender;
         windmap.setMap(map);
+        console.log(windmap);
     });
-	//}
-
-    function draw_arrow(context, fromx, fromy, tox, toy) {
-        let headlen = 4; // length of head in pixels
-        let dx = tox - fromx;
-        let dy = toy - fromy;
-        let angle = Math.atan2(dy, dx);
-        context.moveTo(fromx, fromy);
-        context.lineTo(tox, toy);
-        context.lineTo(tox - headlen * Math.cos(angle - Math.PI / 6), toy - headlen * Math.sin(angle - Math.PI / 6));
-        context.moveTo(tox, toy);
-        context.lineTo(tox - headlen * Math.cos(angle + Math.PI / 6), toy - headlen * Math.sin(angle + Math.PI / 6));
-    }
-
-
-    //判断浏览区是否支持canvas
-    function isSupportCanvas() {
-        let elem = document.createElement('canvas');
-        return !!(elem.getContext && elem.getContext('2d'));
-    }
 }
+
+function draw_arrow(context, fromx, fromy, tox, toy) {
+    let headlen = 4; // length of head in pixels
+    let dx = tox - fromx;
+    let dy = toy - fromy;
+    let angle = Math.atan2(dy, dx);
+    context.moveTo(fromx, fromy);
+    context.lineTo(tox, toy);
+    context.lineTo(tox - headlen * Math.cos(angle - Math.PI / 6), toy - headlen * Math.sin(angle - Math.PI / 6));
+    context.moveTo(tox, toy);
+    context.lineTo(tox - headlen * Math.cos(angle + Math.PI / 6), toy - headlen * Math.sin(angle + Math.PI / 6));
+}
+
 
 pollutant_company.active = false;
 pollutant_company.show = _ => {
@@ -324,5 +325,38 @@ toggleHeatmap = _ => {
     } else {
         heatmap.show();
         heatmap_switch(true);
+    }
+}
+
+windmap_active = false;
+windmap_show = _ => {
+    if (windmap_active === false) {
+        addLayer(dataSet.data, map);
+        windmap_active = true;
+    }
+}
+windmap_show()
+
+windmap_hide = _ => {
+    if (windmap_active === true) {
+        let current_layers = map.getLayers(); 
+        console.log(current_layers[3]);
+        if(current_layers[3] != undefined){
+            map.remove(current_layers[3]); // 因为自定义图层：风向图层 是加在current_layer[3]处的
+        }
+    }
+    windmap_active = false;
+}
+
+toggleWindmap = _ => {
+    if (windmap === undefined) {
+        return;
+    }
+    if (windmap_active === true) {
+        windmap_hide();
+        document.querySelector("#windmap-toggle").textContent = "显示风向";
+    } else {
+        windmap_show();
+        document.querySelector("#windmap-toggle").textContent = "隐藏风向";
     }
 }

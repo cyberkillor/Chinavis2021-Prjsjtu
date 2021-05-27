@@ -165,6 +165,7 @@ function createMap(data) {
     if (heatmap !== undefined) {
         heatmap.hide();
     }
+    heatmap_switch(true);
     map.plugin(["AMap.Heatmap"], function () {
         //初始化heatmap对象
         // heatmap.destroy();
@@ -280,4 +281,42 @@ pollutant_company.hide = _ => {
         map.remove(map.getAllOverlays('marker'));
     }
     pollutant_company.active = false;
+}
+
+pollutant_company.toggle = _ => {
+    if (pollutant_company.active === true) {
+        pollutant_company.hide();
+        document.querySelector("#pollutant-company-toggle").textContent = "显示污染源";
+    } else {
+        pollutant_company.show();
+        document.querySelector("#pollutant-company-toggle").textContent = "隐藏污染源";
+    }
+}
+
+heatmap_active = false
+
+function heatmap_switch(tf=null) {
+    if (tf === null) {
+        return heatmap_active;
+    }
+    if (tf) {
+        heatmap_active = true;
+        document.querySelector("#heatmap-toggle").textContent = "关闭热力图";
+    } else {
+        heatmap_active = false;
+        document.querySelector("#heatmap-toggle").textContent = "显示热力图";
+    }
+}
+
+toggleHeatmap = _ => {
+    if (heatmap === undefined) {
+        return;
+    }
+    if (heatmap_active) {
+        heatmap.hide();
+        heatmap_switch(false);
+    } else {
+        heatmap.show();
+        heatmap_switch(true);
+    }
 }

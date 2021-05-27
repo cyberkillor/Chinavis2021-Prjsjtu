@@ -10,22 +10,22 @@
 <body>
     <div id='dirty-selector'>
         <div class="input-item">
-            <button class="btn-dirt" >PM<sub>2.5</sub></button>
+            <button class="btn-dirt" value=0>PM<sub>2.5</sub></button>
         </div>
         <div class="input-item">
-            <button class="btn-dirt" >PM<sub>10</sub></button>
+            <button class="btn-dirt" value=1>PM<sub>10</sub></button>
         </div>
         <div class="input-item">
-            <button class="btn-dirt" >SO<sub>2</sub></button>
+            <button class="btn-dirt" value=2>SO<sub>2</sub></button>
         </div>
         <div class="input-item">
-            <button class="btn-dirt" >NO<sub>2</sub></button>
+            <button class="btn-dirt" value=3>NO<sub>2</sub></button>
         </div>
         <div class="input-item">
-            <button class="btn-dirt" >CO</button>
+            <button class="btn-dirt" value=4>CO</button>
         </div>
         <div class="input-item">
-            <button class="btn-dirt" >O<sub>3</sub></button>
+            <button class="btn-dirt" value=5>O<sub>3</sub></button>
         </div>
     </div>
 
@@ -121,14 +121,20 @@
     <div id="container"></div>
 
 
-<!--    <div class="input-card" style="width: auto;">-->
-<!--        <div class="input-item">-->
-<!--            <button class="btn" onclick="heatmap.show()">显示热力图</button>-->
-<!--        </div>-->
-<!--        <div class="input-item">-->
-<!--            <button class="btn" onclick="heatmap.hide()">关闭热力图</button>-->
-<!--        </div>-->
-<!--    </div>-->
+   <div class="input-card" style="width: auto;">
+       <div class="input-item">
+            <button class="amap-btn" onclick="heatmap.show()">显示热力图</button>
+        </div>
+        <div class="input-item">
+            <button class="amap-btn" onclick="heatmap.hide()">关闭热力图</button>
+        </div>
+        <div class="input-item">
+            <button class="amap-btn" onclick="pollutant_company.show()">显示污染源</button>
+        </div>
+        <div class="input-item">
+            <button class="amap-btn" onclick="pollutant_company.hide()">隐藏污染源</button>
+        </div>
+    </div>
     <script src="//webapi.amap.com/maps?v=1.4.15&key=52d68b9e521328926a8232c371d49925"></script>
     <script src="javascripts/pollutant_company.js"></script>
     <script src="javascripts/index.js"></script>

@@ -21,7 +21,11 @@ class App extends React.Component {
             data: defaultData,
             showSidebar: false,
         }
-        this.map = null;
+        this.map = map;
+
+        console.log(this.map);
+        this.map.on('click', this.mapClickHandler.bind(this));
+        //this.map.addEventListener('click', this.mapClickHandler.bind(this));
     }
 
     setDate(newDate) {
@@ -31,11 +35,11 @@ class App extends React.Component {
         }
     }
 
-    mapCreatedHandler(mapInstance) {
-        this.map = mapInstance;
-        this.map.setZoom(4);
-        this.map.setCenter([105, 35]);
-    }
+    // mapCreatedHandler(mapInstance) {
+    //     this.map = mapInstance;
+    //     this.map.setZoom(4);
+    //     this.map.setCenter([105, 35]);
+    // }
 
     mapClickHandler(e) {
         this.map.setZoom(6);
@@ -102,9 +106,9 @@ class App extends React.Component {
                 <div id="timepicker_cointainer">
                     <TimePicker defaultDate={new Date(2013, 0, 1)} setDate={this.setDate.bind(this)} />
                 </div>
-                <div id="map_cointainer">
-                    <Map amapkey={'ecb9288ffdad7c96ea95abae13789da7'} events={{ created: this.mapCreatedHandler.bind(this), click: this.mapClickHandler.bind(this), }} />
-                </div>
+                {/* <div id="map_cointainer">
+                    <ReactAMAP.Map amapkey={'ecb9288ffdad7c96ea95abae13789da7'} events={{ created: this.mapCreatedHandler.bind(this), click: this.mapClickHandler.bind(this), }} />
+                </div> */}
                 {
                     this.state.showSidebar &&
                     <div id='sidebar'>

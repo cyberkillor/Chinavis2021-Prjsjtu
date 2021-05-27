@@ -38,7 +38,11 @@ var App = function (_React$Component) {
             data: defaultData,
             showSidebar: false
         };
-        _this.map = null;
+        _this.map = map;
+
+        console.log(_this.map);
+        _this.map.on('click', _this.mapClickHandler.bind(_this));
+        //this.map.addEventListener('click', this.mapClickHandler.bind(this));
         return _this;
     }
 
@@ -50,13 +54,13 @@ var App = function (_React$Component) {
                 this.queryData(this.state.city, newDate);
             }
         }
-    }, {
-        key: 'mapCreatedHandler',
-        value: function mapCreatedHandler(mapInstance) {
-            this.map = mapInstance;
-            this.map.setZoom(4);
-            this.map.setCenter([105, 35]);
-        }
+
+        // mapCreatedHandler(mapInstance) {
+        //     this.map = mapInstance;
+        //     this.map.setZoom(4);
+        //     this.map.setCenter([105, 35]);
+        // }
+
     }, {
         key: 'mapClickHandler',
         value: function mapClickHandler(e) {
@@ -151,11 +155,6 @@ var App = function (_React$Component) {
                     'div',
                     { id: 'timepicker_cointainer' },
                     React.createElement(TimePicker, { defaultDate: new Date(2013, 0, 1), setDate: this.setDate.bind(this) })
-                ),
-                React.createElement(
-                    'div',
-                    { id: 'map_cointainer' },
-                    React.createElement(ReactAMAP.Map, { amapkey: 'ecb9288ffdad7c96ea95abae13789da7', events: { created: this.mapCreatedHandler.bind(this), click: this.mapClickHandler.bind(this) } })
                 ),
                 this.state.showSidebar && React.createElement(
                     'div',

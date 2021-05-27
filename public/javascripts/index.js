@@ -14,6 +14,7 @@ let map = new AMap.Map("container", {
     center: [121.4737, 31.2304],
     zoom: 5
 });
+let heatmap;
 
 bindDirt();
 let pollutant, year, month, day, mode;
@@ -22,26 +23,51 @@ function bindDirt(){
     let btns = document.getElementsByClassName("btn-dirt");
     // console.log(btns);
     // console.log(btns.length);
-    for(let i = 0; i < btns.length; i++){
-        btns[i].idx = i;
-        btns[i].addEventListener("click", e => {
-            // if(e.target.innerHTML === "")
-            pollutant = e.target.idx;
-            //console.log(e.target.value);
-            fetchData()
-        });
-    }
+    document.querySelectorAll(".btn-dirt").forEach(btn => {
+        btn.onclick = _ => {
+            pollutant = btn.value;
+            document.querySelectorAll(".btn-dirt").forEach(b => {
+                b.classList.remove("selected");
+            });
+            btn.className += " selected";
+            fetchData();
+        }
+    })
+    // for(let i = 0; i < btns.length; i++){
+    //     btns[i].idx = i;
+    //     btns[i].addEventListener("click", e => {
+    //         // if(e.target.innerHTML === "")
+    //         pollutant = e.target.idx;
+    //         document.querySelectorAll(".btn-dirt").forEach(btn => {
+    //             console.log(btn);
+    //             btn.className.replace(" selected", "");
+    //         })
+    //         e.target.className += " selected";
+    //         //console.log(e.target.value);
+    //         fetchData()
+    //     });
+    // }
 
-    btns = document.getElementsByClassName("btn-m");
+    // btns = document.getElementsByClassName("btn-m");
     // console.log(btns);
     // console.log(btns.length);
-    for(let i = 0; i < btns.length; i++){
-        btns[i].addEventListener("click", e => {
-            month = e.target.value;
-            // console.log(e.target.innerText);
-            fetchData()
-        });
-    }
+    // for(let i = 0; i < btns.length; i++){
+    //     btns[i].addEventListener("click", e => {
+    //         month = e.target.value;
+    //         // console.log(e.target.innerText);
+    //         fetchData()
+    //     });
+    // }
+    document.querySelectorAll(".btn-m").forEach(btn => {
+        btn.onclick = _ => {
+            month = btn.value;
+            document.querySelectorAll(".btn-m").forEach(b => {
+                b.classList.remove("selected");
+            });
+            btn.className += " selected";
+            fetchData();
+        }
+    })
 
     let select = document.getElementById("year-select");
     select.addEventListener('change', e => {
@@ -106,7 +132,7 @@ function fetchData() {
             // return heatmapData;
             createMap(dataSet.data);
         })
-}
+}   
 
 // https://lbs.amap.com/demo/javascript-api/example/selflayer/heatmap
 function createMap(data) {
@@ -114,6 +140,9 @@ function createMap(data) {
     if (!isSupportCanvas()) {
         alert('热力图仅对支持canvas的浏览器适用,您所使用的浏览器不能使用热力图功能,请换个浏览器试试~')
     }
+
+    // let hs = document.getElementById("_amap_heatmap_div_");
+    // hs.remove();
     
     //详细的参数,可以查看heatmap.js的文档 http://www.patrick-wied.at/static/heatmapjs/docs.html
     //参数说明如下:
@@ -135,8 +164,13 @@ function createMap(data) {
         map.remove(current_layers[3]); // 因为自定义图层：风向图层 是加在current_layer[3]处的
     }
     let heatmap;
+    if (heatmap !== undefined) {
+        heatmap.hide();
+    }
     map.plugin(["AMap.Heatmap"], function () {
         //初始化heatmap对象
+        // heatmap.destroy();
+        // heatmap.hide();
         heatmap = new AMap.Heatmap(map, {
             radius: 25, //给定半径
             opacity: [0, 0.8]
@@ -229,9 +263,24 @@ function createMap(data) {
         return !!(elem.getContext && elem.getContext('2d'));
     }
 }
-pollutant_company.forEach(d => {
-    var marker = new AMap.Marker({
-        position: new AMap.LngLat(d[2], d[1])
-    });
-    map.add(marker);
-});
+
+pollutant_company.active = false;
+pollutant_company.show = _ => {
+    if (pollutant_company.active === false) {
+        pollutant_company.forEach(d => {
+            var marker = new AMap.Marker({
+                position: new AMap.LngLat(d[2], d[1])
+            });
+            map.add(marker);
+        });
+        pollutant_company.active = true
+    }
+}
+pollutant_company.show()
+
+pollutant_company.hide = _ => {
+    if (pollutant_company.active === true) {
+        map.remove(map.getAllOverlays('marker'));
+    }
+    pollutant_company.active = false;
+}

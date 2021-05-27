@@ -2,9 +2,30 @@
   padding: 0;
   margin: 0;
 }
+
 #container{
   height: 100vh;
   width: 100vw;
+}
+
+.input-card {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  word-wrap: break-word;
+  background-color: #fff;
+  background-clip: border-box;
+  border-radius: .25rem;
+  width: 22rem;
+  border-width: 0;
+  border-radius: 0.4rem;
+  box-shadow: 0 2px 6px 0 rgba(114, 124, 245, .5);
+  position: fixed;
+  top: 1rem;
+  right: 1rem;
+  -ms-flex: 1 1 auto;
+  flex: 1 1 auto;
+  padding: 0.75rem 1.25rem;
 }
 
 .input-item {
@@ -43,12 +64,6 @@
   z-index: 10;
 }
 
-#timepicker_cointainer {
-  position: fixed;
-  left: 0;
-  top: 0;
-  z-index: 999;
-}
 #month-selector{
   position: fixed;
   bottom: 20px;
@@ -87,6 +102,7 @@
 li{
   align-content: center;
 }
+
 .btn-m{
   width: 30px;
   height: 30px;
@@ -137,12 +153,12 @@ li{
   text-align-last: center;
 }
 
-.btn-dirt:focus {
+.btn-dirt.selected {
   outline: none;
   background: royalblue;
 }
 
-.btn-m:focus{
+.btn-m.selected{
   outline: none;
   background: darkslateblue;
 }
@@ -159,4 +175,52 @@ li{
   top: 10px;
   right: 10px;
   z-index: 10;
+}
+
+.amap-btn {
+  display: inline-block;
+  font-weight: 400;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: middle;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  border: 1px solid transparent;
+  transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+  background-color: transparent;
+  background-image: none;
+  color: #25A5F7;
+  border-color: #25A5F7;
+  padding: .25rem .5rem;
+  line-height: 1.5;
+  border-radius: 1rem;
+  -webkit-appearance: button;
+  cursor:pointer;
+}
+
+.amap-btn:hover {
+  color: #fff;
+  background-color: #25A5F7;
+  border-color: #25A5F7
+}
+
+.amap-btn:hover {
+  text-decoration: none
+}
+
+/* .amap-btn {
+  top: 1rem;
+  position: absolute;
+  right: 1rem;
+} */
+
+.amap-btn:focus {
+  outline: 0;
+  box-shadow: none;
+}
+
+.btn-m {
+  cursor: pointer;
 }

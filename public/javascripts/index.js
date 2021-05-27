@@ -97,7 +97,9 @@ function fetchData() {
                     dataSet.data.push({
                         "lng": Number(d[12]),
                         "lat": Number(d[11]),
-                        "count": Number(d[pollutant])
+                        "count": Number(d[pollutant]),
+                        "u": Number(d[6]),
+                        "v": Number(d[7])
                     })
                 }
             });
@@ -127,6 +129,11 @@ function createMap(data) {
     其中 key 表示插值的位置, 0-1
     value 为颜色值
     */
+    let current_layers = map.getLayers(); 
+    console.log(current_layers[3]);
+    if(current_layers[3] != undefined){
+        map.remove(current_layers[3]); // 因为自定义图层：风向图层 是加在current_layer[3]处的
+    }
     let heatmap;
     map.plugin(["AMap.Heatmap"], function () {
         //初始化heatmap对象
@@ -151,7 +158,71 @@ function createMap(data) {
             max: data.reduce((r, a) => Math.max(r, a["count"]), 0)
         });
     });
+    addLayer(data, map);
     
+    function addLayer(positions, map){
+	    AMap.plugin('AMap.CustomLayer', function() {
+	        let canvas = document.createElement('canvas');
+	        let customLayer = new AMap.CustomLayer(canvas, {
+                zooms: [3, 10],
+                alwaysRender:true,//缩放过程中是否重绘，复杂绘制建议设为false
+				zIndex: 120
+			});
+            //customLayer.setAttribute("id", "wind_layer");
+			let onRender = function(){
+			    let retina = AMap.Browser.retina;
+                let size = map.getSize();//resize
+                let width = size.width;
+                let height = size.height;
+                canvas.style.width = width+'px'
+                canvas.style.height = height+'px'
+                if(retina){//高清适配
+                    width*=2;
+                    height*=2;
+                }
+                canvas.width = width;
+                canvas.height = height;//清除画布
+			    let ctx = canvas.getContext("2d");
+        		ctx.fillStyle = '#08f';
+        		ctx.strokeStyle = '#fff';
+        		ctx.beginPath();
+			    for (let i = 0; i < positions.length; i += 1) {
+			        let center = new AMap.LngLat(positions[i]['lng'], positions[i]['lat']);
+        			let pos = map.lngLatToContainer(center);
+                    let u = positions[i]['u'];
+                    let v = positions[i]['v'];
+                    //var length = Math.sqrt(Math.pow(u) + Math.pow(v));
+        			if(retina){
+        			    pos = pos.multiplyBy(2);
+        			    u*=2;
+                        v*=2;
+        			}
+                    //let r = length/2;
+                    draw_arrow(ctx, pos.x - u, pos.y - v, pos.x + u, pos.y + v);
+        		}
+        		ctx.lineWidth = retina?2:1
+        		ctx.closePath();
+        		ctx.stroke();
+        		//ctx.fill();
+			}
+			customLayer.render = onRender;
+			customLayer.setMap(map);
+	    });
+	}
+
+    function draw_arrow(context, fromx, fromy, tox, toy) {
+        let headlen = 4; // length of head in pixels
+        let dx = tox - fromx;
+        let dy = toy - fromy;
+        let angle = Math.atan2(dy, dx);
+        context.moveTo(fromx, fromy);
+        context.lineTo(tox, toy);
+        context.lineTo(tox - headlen * Math.cos(angle - Math.PI / 6), toy - headlen * Math.sin(angle - Math.PI / 6));
+        context.moveTo(tox, toy);
+        context.lineTo(tox - headlen * Math.cos(angle + Math.PI / 6), toy - headlen * Math.sin(angle + Math.PI / 6));
+    }
+
+
     //判断浏览区是否支持canvas
     function isSupportCanvas() {
         let elem = document.createElement('canvas');

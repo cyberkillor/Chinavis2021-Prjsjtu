@@ -90,7 +90,7 @@ function fetchData() {
     day = document.getElementById("day-select").value;
     year = document.getElementById("year-select").value;
     mode = document.getElementById("mode-select").value;
-    console.log(pollutants[pollutant], year+month, day, mode);
+    console.log(pollutant, year+month, day, mode);
     if (pollutant === undefined || month === undefined || day === undefined || year === undefined || mode === undefined) {
         return null;
     }
@@ -99,49 +99,64 @@ function fetchData() {
     let ym = year+month;
 
     // TODO: database connection
-    stmt = "SELECT * FROM weatherdata";
+    stmt = `SELECT ${pollutant},lat,lon,u,v FROM weatherdata WHERE year=${year} AND month=${Number(month)} AND day=${Number(day)} AND hour is null`;
     url = `db/${stmt}`
     console.log(url)
     fetch(url)
         .then(r => r.json())
         .then(t => {
-
-        })
-
-    let headers = new Headers();
-    let username = "share";
-    let password = "123456";
-
-    headers.append('Authorization', 'Basic ' + btoa(username + ':' + password));
-
-    let url = `https://nas.tonychen.page:5006/WebDavShare/ChinaVis%202021%20Data/${ym}/CN-Reanalysis-daily-${ym}${day}00.csv`;
-
-
-    console.log(url);
-    fetch(url, {headers: headers})
-        .then(r => r.text())
-        .then(t => {
-            let data = t.split("\n");
-            data.shift();
             dataSet = {
                 data: []
             };
 
-            data.forEach(d => {
-                d = d.split(",");
-                if (d.length > 1) {
-                    dataSet.data.push({
-                        "lng": Number(d[12]),
-                        "lat": Number(d[11]),
-                        "count": Number(d[pollutant]),
-                        "u": Number(d[6]),
-                        "v": Number(d[7])
-                    })
-                }
+            t.forEach(d => {
+                dataSet.data.push({
+                    "lng": d.lon,
+                    "lat": d.lat,
+                    "count": d[pollutant],
+                    "u": d.u,
+                    "v": d.v
+                })
             });
-            // return heatmapData;
+            // console.log(dataSet.data);
+
             createMap(dataSet.data);
         })
+
+    // let headers = new Headers();
+    // let username = "share";
+    // let password = "123456";
+    //
+    // headers.append('Authorization', 'Basic ' + btoa(username + ':' + password));
+    //
+    // let url = `https://nas.tonychen.page:5006/WebDavShare/ChinaVis%202021%20Data/${ym}/CN-Reanalysis-daily-${ym}${day}00.csv`;
+    //
+    //
+    // console.log(url);
+    // fetch(url, {headers: headers})
+    //     .then(r => r.text())
+    //     .then(t => {
+    //         let data = t.split("\n");
+    //         data.shift();
+    //         dataSet = {
+    //             data: []
+    //         };
+    //
+    //         data.forEach(d => {
+    //             d = d.split(",");
+    //             if (d.length > 1) {
+    //                 dataSet.data.push({
+    //                     "lng": Number(d[12]),
+    //                     "lat": Number(d[11]),
+    //                     "count": Number(d[pollutant]),
+    //                     "u": Number(d[6]),
+    //                     "v": Number(d[7])
+    //                 })
+    //             }
+    //         });
+    //         // return heatmapData;
+    //         createMap(dataSet.data);
+    //     })
 }   
 
 // https://lbs.amap.com/demo/javascript-api/example/selflayer/heatmap

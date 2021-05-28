@@ -1,3 +1,55 @@
+var date = { year: 2000, month: 1, date: 1 }, city = { adcode: null, city: null, province: null }, pollutant = null;
+setDate({ year: 2013, month: 1, date: 1 });
+//setCity({adcode: "330109", city: "杭州市", province: "浙江省"});
+//setPollutant('so2')
+
+function setDate(newDate) {
+    const oldDate = { ...date };
+    Object.assign(date, newDate);
+    // do something:
+    console.log(getDate());
+    if (oldDate.year != date.year && window.renderChartTimelineZoomable != null) {
+        renderChartTimelineZoomable();
+    }
+    fetchData();    // heatmap
+}
+function getDate() {
+    return new Date(date.year, date.month - 1, date.date);
+}
+
+function setCity(newCity) {
+    const oldCity = { ...city };
+    Object.assign(city, newCity);
+    // do something:
+    console.log(city);
+    if (oldCity.adcode != city.adcode && window.renderChartTimelineZoomable != null) {
+        renderChartTimelineZoomable();
+    }
+}
+
+function setPollutant(newP) {
+    const oldP = pollutant;
+    pollutant = newP;
+    // do something:
+    console.log(pollutant);
+    if (oldP != pollutant) {
+        if (window.renderChartTimelineZoomable != null)
+            renderChartTimelineZoomable();
+        fetchData();    // heatmap
+    }
+}
+
+function doQuery(command) {
+    return fetch('/db/' + encodeURI(command)).then(resp => {
+        if (resp.ok) {
+            return resp.json();
+        } else {
+            resp.text().then(reason => console.error('"' + command + '":\n' + reason));
+            throw new Error('query failed');
+        }
+    })
+}
+
 let pollutants = ["PM 2.5", "PM 10", "SO2", "NO2", "CO", "O3"];
 
 // function mapCreatedHandler(mapInstance) {
@@ -18,20 +70,22 @@ let heatmap;
 let windmap;
 
 bindDirt();
-let pollutant, year, month, day, mode;
+//let pollutant, year, month, day, mode;
+let mode;
 
-function bindDirt(){
+function bindDirt() {
     let btns = document.getElementsByClassName("btn-dirt");
     // console.log(btns);
     // console.log(btns.length);
     document.querySelectorAll(".btn-dirt").forEach(btn => {
         btn.onclick = _ => {
-            pollutant = btn.value;
+            //pollutant = btn.value;
+            setPollutant(btn.value);
             document.querySelectorAll(".btn-dirt").forEach(b => {
                 b.classList.remove("selected");
             });
             btn.className += " selected";
-            fetchData();
+            //fetchData();
         }
     })
     // for(let i = 0; i < btns.length; i++){
@@ -72,37 +126,41 @@ function bindDirt(){
 
     let select = document.getElementById("year-select");
     select.addEventListener('change', e => {
-        year = e.target.value;
+        setDate({ year: e.target.value });
         fetchData()
     })
-    select = document.getElementById("day-select");
-    select.addEventListener('change', e => {
-        day = e.target.value;
-        fetchData()
-    })
-    select = document.getElementById("mode-select");
-    select.addEventListener('change', e => {
-        mode = e.target.value;
-        fetchData()
-    })
+    // select = document.getElementById("day-select");
+    // select.addEventListener('change', e => {
+    //     day = e.target.value;
+    //     fetchData()
+    // })
+    // select = document.getElementById("mode-select");
+    // select.addEventListener('change', e => {
+    //     mode = e.target.value;
+    //     fetchData()
+    // })
 }
 
 function fetchData() {
-    day = document.getElementById("day-select").value;
-    year = document.getElementById("year-select").value;
-    mode = document.getElementById("mode-select").value;
-    console.log(pollutant, year+month, day, mode);
-    if (pollutant === undefined || month === undefined || day === undefined || year === undefined || mode === undefined) {
+    const year = date.year,
+        month = date.month,
+        day = date.date,
+        mode = 'day';
+    // day = document.getElementById("day-select").value;
+    // year = document.getElementById("year-select").value;
+    // mode = document.getElementById("mode-select").value;
+    console.log(pollutant, year + month, day, mode);
+    if (pollutant == undefined || month == undefined || day == undefined || year == undefined || mode == undefined) {
         return null;
     }
 
-    // update citySidebar
-    if (citySidebar_setDate) {
-        citySidebar_setDate(new Date(parseInt(year), parseInt(month)-1, parseInt(day)));
-    }
+    // // update citySidebar
+    // if (citySidebar_setDate != null) {
+    //     citySidebar_setDate(new Date(parseInt(year), parseInt(month)-1, parseInt(day)));
+    // }
 
     // return null;
-    let ym = year+month;
+    let ym = year + month;
 
     // TODO: database connection
     stmt = `SELECT ${pollutant},lat,lon,u,v FROM weatherdata WHERE year=${year} AND month=${Number(month)} AND day=${Number(day)} AND hour is null`;
@@ -163,18 +221,18 @@ function fetchData() {
     //         // return heatmapData;
     //         createMap(dataSet.data);
     //     })
-}   
+}
 
 // https://lbs.amap.com/demo/javascript-api/example/selflayer/heatmap
 function createMap(data) {
-    
+
     if (!isSupportCanvas()) {
         alert('热力图仅对支持canvas的浏览器适用,您所使用的浏览器不能使用热力图功能,请换个浏览器试试~')
     }
 
     // let hs = document.getElementById("_amap_heatmap_div_");
     // hs.remove();
-    
+
     //详细的参数,可以查看heatmap.js的文档 http://www.patrick-wied.at/static/heatmapjs/docs.html
     //参数说明如下:
     /* visible 热力图是否显示,默认为true
@@ -193,10 +251,10 @@ function createMap(data) {
     // console.log(current_layers[3]);
     // if(current_layers[3] != undefined){
     //     map.remove(current_layers[3]); // 因为自定义图层：风向图层 是加在current_layer[3]处的
-        
+
     // }
     //console.log(windmap);
-    if (windmap !== undefined){
+    if (windmap !== undefined) {
         windmap.hide();
     }
     if (heatmap !== undefined) {
@@ -236,25 +294,25 @@ function createMap(data) {
     }
 }
 
-function addLayer(data, map){
-    map.plugin('AMap.CustomLayer', function() {
+function addLayer(data, map) {
+    map.plugin('AMap.CustomLayer', function () {
         let canvas = document.createElement('canvas');
         windmap = new AMap.CustomLayer(canvas, {
             zooms: [3, 10],
-            alwaysRender:true,//缩放过程中是否重绘，复杂绘制建议设为false
+            alwaysRender: true,//缩放过程中是否重绘，复杂绘制建议设为false
             zIndex: 120
         });
         //windmap.setAttribute("id", "wind_layer");
-        let onRender = function(){
+        let onRender = function () {
             let retina = AMap.Browser.retina;
             let size = map.getSize();//resize
             let width = size.width;
             let height = size.height;
-            canvas.style.width = width+'px'
-            canvas.style.height = height+'px'
-            if(retina){//高清适配
-                width*=2;
-                height*=2;
+            canvas.style.width = width + 'px'
+            canvas.style.height = height + 'px'
+            if (retina) {//高清适配
+                width *= 2;
+                height *= 2;
             }
             canvas.width = width;
             canvas.height = height;//清除画布
@@ -268,15 +326,15 @@ function addLayer(data, map){
                 let u = data[i]['u'];
                 let v = data[i]['v'];
                 //var length = Math.sqrt(Math.pow(u) + Math.pow(v));
-                if(retina){
+                if (retina) {
                     pos = pos.multiplyBy(2);
-                    u*=2;
-                    v*=2;
+                    u *= 2;
+                    v *= 2;
                 }
                 //let r = length/2;
                 draw_arrow(ctx, pos.x - u, pos.y - v, pos.x + u, pos.y + v);
             }
-            ctx.lineWidth = retina?2:1
+            ctx.lineWidth = retina ? 2 : 1
             ctx.closePath();
             ctx.stroke();
             //ctx.fill();
@@ -333,7 +391,7 @@ pollutant_company.toggle = _ => {
 
 heatmap_active = false
 
-function heatmap_switch(tf=null) {
+function heatmap_switch(tf = null) {
     if (tf === null) {
         return heatmap_active;
     }
@@ -370,9 +428,9 @@ windmap_show()
 
 windmap_hide = _ => {
     if (windmap_active === true) {
-        let current_layers = map.getLayers(); 
+        let current_layers = map.getLayers();
         console.log(current_layers[3]);
-        if(current_layers[3] != undefined){
+        if (current_layers[3] != undefined) {
             map.remove(current_layers[3]); // 因为自定义图层：风向图层 是加在current_layer[3]处的
         }
     }
@@ -389,5 +447,35 @@ toggleWindmap = _ => {
     } else {
         windmap_show();
         document.querySelector("#windmap-toggle").textContent = "隐藏风向";
+    }
+}
+
+map.on('click', this.mapClickHandler);
+
+function mapClickHandler(e) {
+    map.setZoom(8);
+    map.setCenter(e.lnglat);
+
+    queryCity(e.lnglat).then(city => setCity(city));
+}
+
+function queryCity(lnglat) {
+    const query = `select cities.adcode, city, province, coordinates.lat, coordinates.lon from coordinates join cities on coordinates.lat>${lnglat.lat - 1} and coordinates.lat<${lnglat.lat + 1} and coordinates.lon>${lnglat.lng - 1} and coordinates.lon<${lnglat.lng + 1} and cities.adcode=coordinates.adcode limit 10000;`;
+    return doQuery(query).then(result => {
+        if (result.length == 0) {
+            return;
+        }
+        let closestCity = result[0];
+        result.forEach(c => {
+            if (simpleDistance(lnglat.lng, lnglat.lat, c.lon, c.lat) < simpleDistance(lnglat.lng, lnglat.lat, closestCity.lon, closestCity.lat)) {
+                closestCity = c;
+            }
+        });
+        console.log('closestCity: ', closestCity);
+        return closestCity;
+    });
+
+    function simpleDistance(x, y, x2, y2) {
+        return Math.abs(x - x2) + Math.abs(y - y2);
     }
 }

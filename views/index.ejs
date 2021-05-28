@@ -38,7 +38,7 @@
             <option value="2017">2017</option>
             <option value="2018">2018</option>
         </select>
-        <select id='day-select'>
+        <!-- <select id='day-select'>
             <option value="01">1</option>
             <option value="02">2</option>
             <option value="03">3</option>
@@ -74,9 +74,9 @@
         <select id='mode-select'>
             <option value="DAY">DAY</option>
             <option value="HOUR">HOUR</option>
-        </select>
+        </select> -->
     </div>
-
+<!-- 
     <div id='month-selector'>
         <ul class="time-horizontal">
             <li>
@@ -116,7 +116,7 @@
                 <button class="btn-m" value='12'>12</button>
             </li>
         </ul>
-    </div>
+    </div> -->
     <div id='info'></div>
     <div id="container"></div>
 
@@ -133,7 +133,8 @@
         </div>
     </div>
 
-    <div id="citySidebarContainer"></div>
+    <!-- <div id="citySidebarContainer"></div> -->
+    <div id="chartTimelineZoomableContainer"></div>
 
     <script src="//webapi.amap.com/maps?v=1.4.15&key=52d68b9e521328926a8232c371d49925"></script>
     <script src="javascripts/pollutant_company.js"></script>
@@ -150,8 +151,9 @@
 
 	<!-- Load our React component. -->
 	<script src="javascripts/d3chart.js"></script>
-	<script src="javascripts/chartPollutionDayCurve.js"></script>
-    <script src="javascripts/citySidebar.js"></script>
+	<!-- <script src="javascripts/chartPollutionDayCurve.js"></script> -->
+    <!-- <script src="javascripts/citySidebar.js"></script> -->
+    <script src="javascripts/chartTimelineZoomable.js"></script>
     <script src="javascripts/indexReact.js"></script>
 </body>
 </html>

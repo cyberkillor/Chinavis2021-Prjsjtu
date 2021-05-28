@@ -133,7 +133,7 @@ li{
 
 #mode-selector{
   position: fixed;
-  bottom: 20px;
+  bottom: 200px;
   left: 10px;
   width: 100px;
   height: auto;
@@ -261,4 +261,15 @@ li{
   left: 0;
   width: 100%;
   text-align: center;
+}
+
+#chartTimelineZoomableContainer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+}
+
+.monthLabel, .cityLabel {
+  font-weight: bold;
 }

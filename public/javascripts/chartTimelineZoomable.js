@@ -90,10 +90,13 @@ var ChartTimelineZoomable = function () {
                 return { value: value.toString(), color: colorSchemePollution[level] };
             }) || [{ value: "0", color: colorSchemePollution[0] }];
 
+            var defaultDate = config.defaultDate;
+            console.log('defaultDate:', defaultDate);
+
             // variables
             var zoomScale = 1,
                 xz = null,
-                chosenMonth = null;
+                isChoosingMonth = false;
 
             // constants
             var scaleMonth = 1,
@@ -124,7 +127,7 @@ var ChartTimelineZoomable = function () {
             // update chart content
             this.backgroudLine.attr('transform', 'translate(' + margin.left + ' ' + (height - margin.bottom) + ')').attr('width', width - margin.right - margin.left).attr('height', '1').attr('fill', 'white');
 
-            this.monthLabel.attr('text-anchor', 'middle').attr('alignment-baseline', 'middle').attr('transform', 'translate(' + margin.left + ' ' + (height - margin.bottom - 40) + ') scale(1.5)').text('');
+            this.monthLabel.attr('text-anchor', 'middle').attr('alignment-baseline', 'middle').attr('transform', 'translate(' + margin.left + ' ' + (height - margin.bottom - 40) + ') scale(1.5)').text(isChoosingMonth ? '' : defaultDate.getMonth() + 1 + '月');
 
             this.cityLabel.attr('text-anchor', 'start').attr('alignment-baseline', 'middle').attr('transform', 'translate(' + (margin.left + 100) + ' ' + (height - margin.bottom - 40) + ') scale(1)').text(city.province == null ? '' : city.province + ' ' + city.city);
 
@@ -135,14 +138,12 @@ var ChartTimelineZoomable = function () {
             });
 
             function calcTimeLabelScale(d) {
-                if (chosenMonth != null && d.date.getMonth() + 1 != chosenMonth) {
-                    return 0;
-                } else if (chosenMonth == null && d.date.getDate() == 1) {
+                if (!isChoosingMonth && d.date.getTime() == defaultDate.getTime()) {
                     return scaleMonth;
-                } else if (chosenMonth != null && d.date.getTime() == getDate().getTime()) {
-                    return scaleMonth;
-                } else if (chosenMonth != null && d.date.getDate() == 1) {
+                } else if (!isChoosingMonth && d.date.getDate() == 1) {
                     return scaleDate;
+                } else if (isChoosingMonth && d.date.getDate() == 1) {
+                    return scaleMonth;
                 } else if (zoomScale < dateZoomThresholdStart) {
                     return scaleDateSmall;
                 } else if (zoomScale > dateZoomThresholdEnd) {
@@ -159,13 +160,11 @@ var ChartTimelineZoomable = function () {
             timeLabels.append('text').attr('text-anchor', 'middle').attr('alignment-baseline', 'middle').text(calcTimeLabelText);
 
             function calcTimeLabelText(d) {
-                if (chosenMonth != null && d.date.getMonth() + 1 != chosenMonth) {
-                    return '';
-                } else if (d.date.getDate() == 1) {
-                    if (zoomScale >= dateZoomThresholdStart) {
-                        return '1';
-                    } else {
+                if (d.date.getDate() == 1) {
+                    if (isChoosingMonth || zoomScale < dateZoomThresholdStart || d.date.getMonth() != defaultDate.getMonth()) {
                         return d.date.getMonth() + 1 + '月';
+                    } else {
+                        return '1';
                     }
                 } else {
                     return d.date.getDate();
@@ -201,7 +200,7 @@ var ChartTimelineZoomable = function () {
             //.translateExtent([[margin.left, -Infinity], [width - margin.right, Infinity]])
             .on("zoom", zoomed.bind(this));
 
-            this.svg.call(zoom);
+            this.svg.call(zoom).call(zoom.translateTo, x(new Date(defaultDate.getFullYear(), defaultDate.getMonth(), 1)), 0, [margin.left, 0]).call(zoom.scaleTo, dateZoomThresholdEnd, [margin.left, 0]);
 
             function zoomed(event) {
                 //const oldZoomScale = zoomScale;
@@ -214,27 +213,28 @@ var ChartTimelineZoomable = function () {
                     return 'translate(' + xz(d.date) + ' ' + (height - margin.bottom - 10) + ') ' + 'scale(' + calcTimeLabelScale(d) + ')';
                 });
                 timeLabels.selectAll('text').text(calcTimeLabelText);
+                this.monthLabel.text(isChoosingMonth ? '' : defaultDate.getMonth() + 1 + '月');
             }
 
             // custom events
             timeLabels.on('click', timeLabelClickHandler.bind(this));
             function timeLabelClickHandler(e, d) {
-                this.svg.transition().duration(300).call(zoom.translateTo, x(new Date(d.date.getFullYear(), d.date.getMonth(), 1)), 0, [margin.left, 0]).transition().duration(500).call(zoom.scaleTo, dateZoomThresholdEnd, [margin.left, 0]);
+                // this.svg
+                //     .transition()
+                //     .duration(300)
+                //     .call(zoom.translateTo, x(new Date(d.date.getFullYear(), d.date.getMonth(), 1)), 0, [margin.left, 0])
+                //     .transition()
+                //     .duration(500)
+                //     .call(zoom.scaleTo, dateZoomThresholdEnd, [margin.left, 0]);
 
                 setDate({ year: d.date.getFullYear(), month: d.date.getMonth() + 1, date: d.date.getDate() });
-                chosenMonth = d.date.getMonth() + 1;
-                this.monthLabel.text(chosenMonth + '月');
+                // chosenMonth = d.date.getMonth() + 1;
+                // this.monthLabel.text(chosenMonth + '月');
             }
-            var d = { date: getDate() };
-            this.svg.call(zoom.translateTo, x(new Date(d.date.getFullYear(), d.date.getMonth(), 1)), 0, [margin.left, 0]).call(zoom.scaleTo, dateZoomThresholdEnd, [margin.left, 0]);
-
-            setDate({ year: d.date.getFullYear(), month: d.date.getMonth() + 1, date: d.date.getDate() });
-            chosenMonth = d.date.getMonth() + 1;
-            this.monthLabel.text(chosenMonth + '月');
 
             timeLabels.on('mouseenter', timeLabelMouseenterHandler);
             function timeLabelMouseenterHandler(e, d) {
-                d3.select(this).select('circle').transition().duration(500).attr('fill', 'white');
+                d3.select(this).select('circle').transition().duration(0).attr('fill', 'white');
             }
 
             timeLabels.on('mouseleave', timeLabelMouseleaveHandler);
@@ -245,8 +245,7 @@ var ChartTimelineZoomable = function () {
             this.monthLabel.on('click', svgMouseleaveHandler.bind(this));
             function svgMouseleaveHandler(e, d, target) {
                 this.svg.transition().duration(500).call(zoom.scaleTo, 1, [margin.left, 0]).transition().duration(300).call(zoom.translateTo, x(data[0].date), 0, [margin.left, 0]);
-                chosenMonth = null;
-                this.monthLabel.text('');
+                isChoosingMonth = true;
             }
         }
     }]);

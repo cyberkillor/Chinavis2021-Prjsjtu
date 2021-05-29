@@ -77,11 +77,13 @@ class ChartTimelineZoomable {
         const column = config.column || data.columns[0];
         const colorScheme = config.colorScheme || (pollutionLevelDefinition[column] && Object.entries(pollutionLevelDefinition[column]).map(([value, level]) => ({ value: value.toString(), color: colorSchemePollution[level] }))) || [{ value: "0", color: colorSchemePollution[0] }];
 
+        const defaultDate = config.defaultDate;
+        console.log('defaultDate:', defaultDate);
 
         // variables
         let zoomScale = 1,
             xz = null,
-            chosenMonth = null;
+            isChoosingMonth = false;
 
         // constants
         const scaleMonth = 1,
@@ -120,7 +122,7 @@ class ChartTimelineZoomable {
             .attr('text-anchor', 'middle')
             .attr('alignment-baseline', 'middle')
             .attr('transform', 'translate(' + margin.left + ' ' + (height - margin.bottom - 40) + ') scale(1.5)')
-            .text('');
+            .text(isChoosingMonth? '' : defaultDate.getMonth()+1+'月');
 
         this.cityLabel
             .attr('text-anchor', 'start')
@@ -136,15 +138,13 @@ class ChartTimelineZoomable {
                 + 'scale(' + (calcTimeLabelScale(d)) + ')');
 
         function calcTimeLabelScale(d) {
-            if (chosenMonth != null && d.date.getMonth() + 1 != chosenMonth) {
-                return 0;
-            } else if (chosenMonth == null && d.date.getDate() == 1) {
+            if (!isChoosingMonth && d.date.getTime() == defaultDate.getTime()) {
                 return scaleMonth;
-            } else if (chosenMonth != null && d.date.getTime() == getDate().getTime()) {
-                return scaleMonth;
-            } else if (chosenMonth != null && d.date.getDate() == 1) {
+            } else if (!isChoosingMonth && d.date.getDate() == 1) {
                 return scaleDate;
-            } else if (zoomScale < dateZoomThresholdStart) {
+            } else if (isChoosingMonth && d.date.getDate() == 1) {
+                return scaleMonth;
+            }  else if (zoomScale < dateZoomThresholdStart) {
                 return scaleDateSmall;
             } else if (zoomScale > dateZoomThresholdEnd) {
                 return scaleDate;
@@ -168,13 +168,11 @@ class ChartTimelineZoomable {
             .text(calcTimeLabelText);
 
         function calcTimeLabelText(d) {
-            if (chosenMonth != null && d.date.getMonth() + 1 != chosenMonth) {
-                return '';
-            } else if (d.date.getDate() == 1) {
-                if (zoomScale >= dateZoomThresholdStart) {
-                    return '1';
-                } else {
+            if (d.date.getDate() == 1) {
+                if (isChoosingMonth || zoomScale < dateZoomThresholdStart || d.date.getMonth() != defaultDate.getMonth()) {
                     return d.date.getMonth() + 1 + '月';
+                } else {
+                    return '1';
                 }
             } else {
                 return d.date.getDate();
@@ -218,7 +216,9 @@ class ChartTimelineZoomable {
             //.translateExtent([[margin.left, -Infinity], [width - margin.right, Infinity]])
             .on("zoom", zoomed.bind(this));
 
-        this.svg.call(zoom);
+        this.svg.call(zoom)
+            .call(zoom.translateTo, x(new Date(defaultDate.getFullYear(), defaultDate.getMonth(), 1)), 0, [margin.left, 0])
+            .call(zoom.scaleTo, dateZoomThresholdEnd, [margin.left, 0]);
 
         function zoomed(event) {
             //const oldZoomScale = zoomScale;
@@ -232,38 +232,31 @@ class ChartTimelineZoomable {
                     + 'scale(' + (calcTimeLabelScale(d)) + ')');
             timeLabels.selectAll('text')
                 .text(calcTimeLabelText);
+            this.monthLabel.text(isChoosingMonth? '' : defaultDate.getMonth()+1+'月');
         }
 
         // custom events
         timeLabels.on('click', timeLabelClickHandler.bind(this));
         function timeLabelClickHandler(e, d) {
-            this.svg
-                .transition()
-                .duration(300)
-                .call(zoom.translateTo, x(new Date(d.date.getFullYear(), d.date.getMonth(), 1)), 0, [margin.left, 0])
-                .transition()
-                .duration(500)
-                .call(zoom.scaleTo, dateZoomThresholdEnd, [margin.left, 0]);
+            // this.svg
+            //     .transition()
+            //     .duration(300)
+            //     .call(zoom.translateTo, x(new Date(d.date.getFullYear(), d.date.getMonth(), 1)), 0, [margin.left, 0])
+            //     .transition()
+            //     .duration(500)
+            //     .call(zoom.scaleTo, dateZoomThresholdEnd, [margin.left, 0]);
 
             setDate({ year: d.date.getFullYear(), month: d.date.getMonth() + 1, date: d.date.getDate() });
-            chosenMonth = d.date.getMonth() + 1;
-            this.monthLabel.text(chosenMonth + '月');
+            // chosenMonth = d.date.getMonth() + 1;
+            // this.monthLabel.text(chosenMonth + '月');
         }
-        let d = { date: getDate() };
-        this.svg
-            .call(zoom.translateTo, x(new Date(d.date.getFullYear(), d.date.getMonth(), 1)), 0, [margin.left, 0])
-            .call(zoom.scaleTo, dateZoomThresholdEnd, [margin.left, 0]);
-
-        setDate({ year: d.date.getFullYear(), month: d.date.getMonth() + 1, date: d.date.getDate() });
-        chosenMonth = d.date.getMonth() + 1;
-        this.monthLabel.text(chosenMonth + '月');
 
         timeLabels.on('mouseenter', timeLabelMouseenterHandler);
         function timeLabelMouseenterHandler(e, d) {
             d3.select(this)
                 .select('circle')
                 .transition()
-                .duration(500)
+                .duration(0)
                 .attr('fill', 'white');
         }
 
@@ -285,8 +278,7 @@ class ChartTimelineZoomable {
                 .transition()
                 .duration(300)
                 .call(zoom.translateTo, x(data[0].date), 0, [margin.left, 0]);
-            chosenMonth = null;
-            this.monthLabel.text('');
+            isChoosingMonth = true;
         }
     }
 }

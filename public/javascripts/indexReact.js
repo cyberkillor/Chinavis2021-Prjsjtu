@@ -8,9 +8,9 @@ function renderChartTimelineZoomableEmpty() {
     var data = [];
     data.columns = ['so2', 'no2', 'pm10', 'co', 'o3'];
     for (var i = 0; i < 365; i++) {
-        data.push({ date: new Date(2013, 0, i + 1), so2: 0, no2: 0, pm10: 0, co: 0, o3: 0 });
+        data.push({ date: new Date(date.year, 0, i + 1), so2: 0, no2: 0, pm10: 0, co: 0, o3: 0 });
     }
-    ReactDOM.render(React.createElement(D3Chart, { chartType: ChartTimelineZoomable, data: data, config: { column: 'so2' } }), document.getElementById('chartTimelineZoomableContainer'));
+    ReactDOM.render(React.createElement(D3Chart, { chartType: ChartTimelineZoomable, data: data, config: { column: 'so2', defaultDate: getDate() } }), document.getElementById('chartTimelineZoomableContainer'));
 }
 
 function renderChartTimelineZoomable() {
@@ -48,7 +48,7 @@ function renderChartTimelineZoomable() {
             resp.push({ date: new Date(2013, 0, i + 1), so2: 0, no2: 0, pm10: 0, co: 0, o3: 0 });
         }
         console.log(resp);
-        ReactDOM.render(React.createElement(D3Chart, { chartType: ChartTimelineZoomable, data: resp, config: { column: pollutant } }), document.getElementById('chartTimelineZoomableContainer'));
+        ReactDOM.render(React.createElement(D3Chart, { chartType: ChartTimelineZoomable, data: resp, config: { column: pollutant, defaultDate: getDate() } }), document.getElementById('chartTimelineZoomableContainer'));
     });
 }
 

@@ -8,7 +8,7 @@ function setDate(newDate) {
     Object.assign(date, newDate);
     // do something:
     console.log(getDate());
-    if (oldDate.year != date.year && window.renderChartTimelineZoomable != null) {
+    if (window.renderChartTimelineZoomable != null) {
         renderChartTimelineZoomable();
     }
     fetchData();    // heatmap
@@ -113,21 +113,20 @@ function bindDirt() {
     //         fetchData()
     //     });
     // }
-    document.querySelectorAll(".btn-m").forEach(btn => {
-        btn.onclick = _ => {
-            month = btn.value;
-            document.querySelectorAll(".btn-m").forEach(b => {
-                b.classList.remove("selected");
-            });
-            btn.className += " selected";
-            fetchData();
-        }
-    })
+    // document.querySelectorAll(".btn-m").forEach(btn => {
+    //     btn.onclick = _ => {
+    //         month = btn.value;
+    //         document.querySelectorAll(".btn-m").forEach(b => {
+    //             b.classList.remove("selected");
+    //         });
+    //         btn.className += " selected";
+    //         fetchData();
+    //     }
+    // })
 
     let select = document.getElementById("year-select");
     select.addEventListener('change', e => {
         setDate({ year: e.target.value });
-        fetchData()
     })
     // select = document.getElementById("day-select");
     // select.addEventListener('change', e => {
@@ -149,7 +148,7 @@ function fetchData() {
     // day = document.getElementById("day-select").value;
     // year = document.getElementById("year-select").value;
     // mode = document.getElementById("mode-select").value;
-    console.log(pollutant, year + month, day, mode);
+    //console.log(pollutant, year + month, day, mode);
     if (pollutant == undefined || month == undefined || day == undefined || year == undefined || mode == undefined) {
         return null;
     }

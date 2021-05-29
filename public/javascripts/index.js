@@ -449,6 +449,26 @@ toggleWindmap = _ => {
     }
 }
 
+let autoplayOn = false, autoplayIntervalID = null;
+
+toggleAutoplay = _ => {
+    if (autoplayOn) {
+        clearInterval(autoplayIntervalID);
+        autoplayOn = false;
+        document.querySelector("#autoplay-toggle").textContent = "播放";
+    } else {
+        autoplayIntervalID = window.setInterval(nextDay, 2000);
+        autoplayOn = true;
+        document.querySelector("#autoplay-toggle").textContent = "暂停";
+    }
+}
+
+function nextDay() {
+    let d = new Date(getDate().getTime() + 86400000);
+    setDate({year: d.getFullYear(), month: d.getMonth()+1, date: d.getDate()});
+}
+
+
 map.on('click', this.mapClickHandler);
 
 function mapClickHandler(e) {

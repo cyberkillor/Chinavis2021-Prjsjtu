@@ -133,24 +133,24 @@ li{
 
 #mode-selector{
   position: fixed;
-  bottom: 200px;
-  left: 10px;
-  width: 100px;
+  bottom: 8vw;
+  left: 1vw;
+  width: 8vw;
   height: auto;
   z-index: 10;
 }
 #mode-selector>select{
-  background:#fafdfe;
+  background:none;
   height: 30px;
-  width: 90px;
+  width: 8vw;
   margin: 5px;
   line-height:28px;
-  border:1px solid #9bc0dd;
+  border: none;
   border-radius: 10px;
   -moz-border-radius:2px;
   -webkit-border-radius:2px;
-  text-align: center;
-  text-align-last: center;
+  text-align: left;
+  font-size: 2vw;
 }
 
 .btn-dirt.selected {
@@ -226,7 +226,7 @@ li{
 }
 
 
-#chart_container {
+/* #chart_container {
   float: left;
   width: 300px;
 }
@@ -261,15 +261,20 @@ li{
   left: 0;
   width: 100%;
   text-align: center;
-}
+} */
 
 #chartTimelineZoomableContainer {
   position: fixed;
   bottom: 0;
   left: 0;
   width: 100%;
+  user-select: none;
 }
 
 .monthLabel, .cityLabel {
   font-weight: bold;
+}
+
+.monthLabel, .timeLabel {
+  cursor: pointer;
 }

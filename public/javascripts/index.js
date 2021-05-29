@@ -457,7 +457,7 @@ toggleAutoplay = _ => {
         autoplayOn = false;
         document.querySelector("#autoplay-toggle").textContent = "播放";
     } else {
-        autoplayIntervalID = window.setInterval(nextDay, 2000);
+        autoplayIntervalID = window.setInterval(nextDay, 1000);
         autoplayOn = true;
         document.querySelector("#autoplay-toggle").textContent = "暂停";
     }

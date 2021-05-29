@@ -141,14 +141,10 @@ li{
 }
 #mode-selector>select{
   background:none;
-  height: 30px;
   width: 8vw;
   margin: 5px;
   line-height:28px;
   border: none;
-  border-radius: 10px;
-  -moz-border-radius:2px;
-  -webkit-border-radius:2px;
   text-align: left;
   font-size: 2vw;
 }

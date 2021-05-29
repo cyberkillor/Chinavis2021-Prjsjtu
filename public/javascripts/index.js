@@ -362,14 +362,14 @@ pollutant_company.show = _ => {
     if (pollutant_company.active === false) {
         pollutant_company.forEach(d => {
             var marker = new AMap.Marker({
-                position: new AMap.LngLat(d[2], d[1])
+                position: new AMap.LngLat(d['lon'], d['lat'])
             });
             map.add(marker);
         });
         pollutant_company.active = true
     }
 }
-pollutant_company.show()
+// pollutant_company.show()
 
 pollutant_company.hide = _ => {
     if (pollutant_company.active === true) {

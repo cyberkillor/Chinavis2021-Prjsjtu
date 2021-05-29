@@ -8,6 +8,7 @@ function setDate(newDate) {
     Object.assign(date, newDate);
     // do something:
     console.log(getDate());
+    document.getElementById("year-select").value = date.year;
     if (window.renderChartTimelineZoomable != null) {
         renderChartTimelineZoomable();
     }

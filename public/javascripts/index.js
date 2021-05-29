@@ -369,7 +369,7 @@ pollutant_company.show = _ => {
         pollutant_company.active = true
     }
 }
-pollutant_company.show()
+// pollutant_company.show()
 
 pollutant_company.hide = _ => {
     if (pollutant_company.active === true) {

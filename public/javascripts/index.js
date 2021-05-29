@@ -362,7 +362,7 @@ pollutant_company.show = _ => {
     if (pollutant_company.active === false) {
         pollutant_company.forEach(d => {
             var marker = new AMap.Marker({
-                position: new AMap.LngLat(d[2], d[1])
+                position: new AMap.LngLat(d['lon'], d['lat'])
             });
             map.add(marker);
         });

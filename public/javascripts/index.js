@@ -359,33 +359,61 @@ function draw_arrow(context, fromx, fromy, tox, toy) {
 
 
 pollutant_company.active = false;
-pollutant_company.show = _ => {
-    if (pollutant_company.active === false) {
-        pollutant_company.forEach(d => {
-            var marker = new AMap.Marker({
-                position: new AMap.LngLat(d['lon'], d['lat'])
-            });
-            map.add(marker);
-        });
-        pollutant_company.active = true
-    }
-}
-// pollutant_company.show()
+map_minimumZoom = 7;
+var styleObject = [{
+    url: 'images/air.png',
+    size: new AMap.Size(11,11),
+    anchor: new AMap.Pixel(5,5)
+},{
+    url: 'images/factory.png',
+    size: new AMap.Size(11,11),
+    anchor: new AMap.Pixel(5,5)
+},{
+    url: 'images/farm.png',
+    size: new AMap.Size(11,11),
+    anchor: new AMap.Pixel(5,5)
+},{
+    url: 'images/sewage.png',
+    size: new AMap.Size(11,11),
+    anchor: new AMap.Pixel(5,5)
+},{
+    url: 'images/water.png',
+    size: new AMap.Size(11,11),
+    anchor: new AMap.Pixel(5,5)
+}]
+var pollution_source = new AMap.MassMarks(pollutant_company, {
+    zIndex: 5,
+    alwaysRender: false,
+    style: styleObject,
+    cursor: "pointer",
+    zooms: [map_minimumZoom, 18]
+});
+pollution_source.setMap(map);
 
-pollutant_company.hide = _ => {
-    if (pollutant_company.active === true) {
-        map.remove(map.getAllOverlays('marker'));
+var marker = new AMap.Marker({content: ' ', map: map});
+
+pollution_source.on('mouseover', function (e) {
+    if (map.getZoom() >= map_minimumZoom) {
+        marker.setPosition(e.data.lnglat);
+        marker.setLabel({content: e.data.name})
     }
-    pollutant_company.active = false;
-}
+});
+
+pollution_source.hide()
 
 pollutant_company.toggle = _ => {
     if (pollutant_company.active === true) {
-        pollutant_company.hide();
+        pollution_source.hide();
+        pollutant_company.active = false;
         document.querySelector("#pollutant-company-toggle").textContent = "显示污染源";
     } else {
-        pollutant_company.show();
-        document.querySelector("#pollutant-company-toggle").textContent = "隐藏污染源";
+        if (map.getZoom() < map_minimumZoom) {
+            console.log("请放大地图");
+        } else {
+            pollution_source.show();
+            pollutant_company.active = true;
+            document.querySelector("#pollutant-company-toggle").textContent = "隐藏污染源";
+        }
     }
 }
 

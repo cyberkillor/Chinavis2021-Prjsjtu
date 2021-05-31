@@ -140,15 +140,6 @@ li{
   height: auto;
   z-index: 10;
 }
-#mode-selector>select{
-  background:none;
-  width: 10vw;
-  margin: 5px;
-  line-height:28px;
-  border: none;
-  text-align: left;
-  font-size: 2.5vw;
-}
 
 .btn-dirt.selected, .btn-attr.selected {
   outline: none;
@@ -280,5 +271,12 @@ li{
 }
 
 #year-select {
+  background:none;
+  width: 10vw;
+  margin: 5px;
+  line-height:28px;
+  border: none;
+  text-align: left;
   font-weight: bold;
+  font-size: 3.2vw;
 }

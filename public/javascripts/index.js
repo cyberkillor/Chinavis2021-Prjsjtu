@@ -178,31 +178,34 @@ function createMap(data) {
     // }
     //console.log(windmap);
     if (heatmap !== undefined) {
-        heatmap.hide();
-    }
-    heatmap_switch(true);
-    map.plugin(["AMap.Heatmap"], function () {
-        //初始化heatmap对象
-        // heatmap.destroy();
-        // heatmap.hide();
-        heatmap = new AMap.Heatmap(map, {
-            radius: 25, //给定半径
-            opacity: [0, 0.8]
-            /*,
-            gradient:{
-                0.5: 'blue',
-                0.65: 'rgb(117,211,248)',
-                0.7: 'rgb(0, 255, 0)',
-                0.9: '#ffea00',
-                1.0: 'red'
-            }
-            */
-        });
-
         heatmap.setDataSet({
             data: data
         });
-    });
+    } else {
+        map.plugin(["AMap.Heatmap"], function () {
+            //初始化heatmap对象
+            // heatmap.destroy();
+            // heatmap.hide();
+            heatmap = new AMap.Heatmap(map, {
+                radius: 25, //给定半径
+                opacity: [0, 0.8]
+                /*,
+                gradient:{
+                    0.5: 'blue',
+                    0.65: 'rgb(117,211,248)',
+                    0.7: 'rgb(0, 255, 0)',
+                    0.9: '#ffea00',
+                    1.0: 'red'
+                }
+                */
+            });
+    
+            heatmap.setDataSet({
+                data: data
+            });
+        });
+    }
+    heatmap_switch(true);
 
 
     //判断浏览区是否支持canvas

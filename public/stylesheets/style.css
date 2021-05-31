@@ -1,6 +1,7 @@
 *{
   padding: 0;
   margin: 0;
+  font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 #container{
@@ -141,12 +142,12 @@ li{
 }
 #mode-selector>select{
   background:none;
-  width: 8vw;
+  width: 10vw;
   margin: 5px;
   line-height:28px;
   border: none;
   text-align: left;
-  font-size: 2vw;
+  font-size: 2.5vw;
 }
 
 .btn-dirt.selected, .btn-attr.selected {
@@ -276,4 +277,8 @@ li{
 
 .monthLabel, .timeLabel {
   cursor: pointer;
+}
+
+#year-select {
+  font-weight: bold;
 }

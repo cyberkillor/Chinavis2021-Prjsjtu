@@ -114,7 +114,7 @@ li{
   color: white;
 }
 
-.btn-dirt {
+.btn-dirt, .btn-attr {
   display: inline-block;
   width: 90px;
   height: 45px;
@@ -149,7 +149,7 @@ li{
   font-size: 2vw;
 }
 
-.btn-dirt.selected {
+.btn-dirt.selected, .btn-attr.selected {
   outline: none;
   background: royalblue;
 }
@@ -160,6 +160,9 @@ li{
 }
 
 .btn-dirt:active {
+  transform: scale(0.95);
+}
+.btn-attr:active{
   transform: scale(0.95);
 }
 .btn-m:active {

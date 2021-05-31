@@ -1,4 +1,4 @@
-var date = { year: 2000, month: 1, date: 1 }, city = { adcode: null, city: null, province: null }, pollutant = null;
+let date = { year: 2000, month: 1, date: 1 }, city = { adcode: null, city: null, province: null }, pollutant = null;
 setDate({ year: 2013, month: 1, date: 1 });
 //setCity({adcode: "330109", city: "杭州市", province: "浙江省"});
 //setPollutant('so2')
@@ -54,11 +54,6 @@ function doQuery(command) {
 
 let pollutants = ["PM 2.5", "PM 10", "SO2", "NO2", "CO", "O3"];
 
-// function mapCreatedHandler(mapInstance) {
-//     let map = mapInstance;
-//     map.setZoom(4);
-//     map.setCenter([105, 35]);
-// }
 let dataSet = {
     data: []
 };
@@ -76,9 +71,6 @@ bindDirt();
 let mode;
 
 function bindDirt() {
-    let btns = document.getElementsByClassName("btn-dirt");
-    // console.log(btns);
-    // console.log(btns.length);
     document.querySelectorAll(".btn-dirt").forEach(btn => {
         btn.onclick = _ => {
             //pollutant = btn.value;
@@ -90,56 +82,21 @@ function bindDirt() {
             //fetchData();
         }
     })
-    // for(let i = 0; i < btns.length; i++){
-    //     btns[i].idx = i;
-    //     btns[i].addEventListener("click", e => {
-    //         // if(e.target.innerHTML === "")
-    //         pollutant = e.target.idx;
-    //         document.querySelectorAll(".btn-dirt").forEach(btn => {
-    //             console.log(btn);
-    //             btn.className.replace(" selected", "");
-    //         })
-    //         e.target.className += " selected";
-    //         //console.log(e.target.value);
-    //         fetchData()
-    //     });
-    // }
 
-    // btns = document.getElementsByClassName("btn-m");
-    // console.log(btns);
-    // console.log(btns.length);
-    // for(let i = 0; i < btns.length; i++){
-    //     btns[i].addEventListener("click", e => {
-    //         month = e.target.value;
-    //         // console.log(e.target.innerText);
-    //         fetchData()
-    //     });
-    // }
-    // document.querySelectorAll(".btn-m").forEach(btn => {
-    //     btn.onclick = _ => {
-    //         month = btn.value;
-    //         document.querySelectorAll(".btn-m").forEach(b => {
+    // document.querySelectorAll(".btn-attr").forEach(btn =>{
+    //     btn.onClick = _ => {
+    //         setPollutant(btn.value);
+    //         document.querySelectorAll(".btn-attr").forEach(b => {
     //             b.classList.remove("selected");
     //         });
     //         btn.className += " selected";
-    //         fetchData();
     //     }
     // })
-
+    
     let select = document.getElementById("year-select");
     select.addEventListener('change', e => {
         setDate({ year: e.target.value });
     })
-    // select = document.getElementById("day-select");
-    // select.addEventListener('change', e => {
-    //     day = e.target.value;
-    //     fetchData()
-    // })
-    // select = document.getElementById("mode-select");
-    // select.addEventListener('change', e => {
-    //     mode = e.target.value;
-    //     fetchData()
-    // })
 }
 
 function fetchData() {
@@ -161,7 +118,6 @@ function fetchData() {
     // }
 
     // return null;
-    let ym = year + month;
 
     // TODO: database connection
     stmt = `SELECT ${pollutant},lat,lon,u,v FROM weatherdata WHERE year=${year} AND month=${Number(month)} AND day=${Number(day)} AND hour is null`;
@@ -188,41 +144,6 @@ function fetchData() {
             windmap_show();
             //console.log("windmap:", windmap);
         })
-
-    // let headers = new Headers();
-    // let username = "share";
-    // let password = "123456";
-    //
-    // headers.append('Authorization', 'Basic ' + btoa(username + ':' + password));
-    //
-    // let url = `https://nas.tonychen.page:5006/WebDavShare/ChinaVis%202021%20Data/${ym}/CN-Reanalysis-daily-${ym}${day}00.csv`;
-    //
-    //
-    // console.log(url);
-    // fetch(url, {headers: headers})
-    //     .then(r => r.text())
-    //     .then(t => {
-    //         let data = t.split("\n");
-    //         data.shift();
-    //         dataSet = {
-    //             data: []
-    //         };
-    //
-    //         data.forEach(d => {
-    //             d = d.split(",");
-    //             if (d.length > 1) {
-    //                 dataSet.data.push({
-    //                     "lng": Number(d[12]),
-    //                     "lat": Number(d[11]),
-    //                     "count": Number(d[pollutant]),
-    //                     "u": Number(d[6]),
-    //                     "v": Number(d[7])
-    //                 })
-    //             }
-    //         });
-    //         // return heatmapData;
-    //         createMap(dataSet.data);
-    //     })
 }
 
 // https://lbs.amap.com/demo/javascript-api/example/selflayer/heatmap
@@ -277,9 +198,7 @@ function createMap(data) {
             }
             */
         });
-        // console.log(data.reduce((r, a, idx) => {
-        //     if (isNaN(a["count"])) { console.log(a, idx) }
-        //     return Math.max(r, a["count"])}, 0));
+
         heatmap.setDataSet({
             data: data
         });
@@ -328,7 +247,7 @@ function addLayer(data, map) {
                 let pos = map.lngLatToContainer(center);
                 let u = data[i]['u'];
                 let v = data[i]['v'];
-                //var length = Math.sqrt(Math.pow(u) + Math.pow(v));
+                //let length = Math.sqrt(Math.pow(u) + Math.pow(v));
                 if (retina) {
                     pos = pos.multiplyBy(2);
                     u *= 2;
@@ -363,7 +282,7 @@ function draw_arrow(context, fromx, fromy, tox, toy) {
 
 pollutant_company.active = false;
 map_minimumZoom = 7;
-var styleObject = [{
+let styleObject = [{
     url: 'images/air.png',
     size: new AMap.Size(11,11),
     anchor: new AMap.Pixel(5,5)
@@ -384,7 +303,7 @@ var styleObject = [{
     size: new AMap.Size(11,11),
     anchor: new AMap.Pixel(5,5)
 }]
-var pollution_source = new AMap.MassMarks(pollutant_company, {
+let pollution_source = new AMap.MassMarks(pollutant_company, {
     zIndex: 5,
     alwaysRender: false,
     style: styleObject,
@@ -393,7 +312,7 @@ var pollution_source = new AMap.MassMarks(pollutant_company, {
 });
 pollution_source.setMap(map);
 
-var marker = new AMap.Marker({content: ' ', map: map});
+let marker = new AMap.Marker({content: ' ', map: map});
 
 pollution_source.on('mouseover', function (e) {
     if (map.getZoom() >= map_minimumZoom) {

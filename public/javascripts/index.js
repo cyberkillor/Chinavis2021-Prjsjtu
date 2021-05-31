@@ -141,7 +141,7 @@ function fetchData() {
             });
             // console.log(dataSet.data);
             createMap(dataSet.data);
-            windmap_show();
+            if(windmap_active===true) windmap_show();
             //console.log("windmap:", windmap);
         })
 }
@@ -393,9 +393,6 @@ windmap_hide = _ => {
 toggleWindmap = _ => {
     // let current_layers = map.getLayers();
     // console.log("Toogle windmap:", current_layers);
-    if (windmap === undefined) {
-        return;
-    }
     if (windmap_active === true) {
         windmap_hide();
     } else {

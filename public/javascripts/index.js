@@ -3,6 +3,7 @@ setDate({ year: 2013, month: 1, date: 1 });
 //setCity({adcode: "330109", city: "杭州市", province: "浙江省"});
 //setPollutant('so2')
 
+
 function setDate(newDate) {
     const oldDate = { ...date };
     Object.assign(date, newDate);
@@ -183,8 +184,9 @@ function fetchData() {
                 })
             });
             // console.log(dataSet.data);
-
             createMap(dataSet.data);
+            windmap_show();
+            //console.log("windmap:", windmap);
         })
 
     // let headers = new Headers();
@@ -254,9 +256,6 @@ function createMap(data) {
 
     // }
     //console.log(windmap);
-    if (windmap !== undefined) {
-        windmap.hide();
-    }
     if (heatmap !== undefined) {
         heatmap.hide();
     }
@@ -295,14 +294,18 @@ function createMap(data) {
 }
 
 function addLayer(data, map) {
+    if (windmap !== undefined) {
+        windmap_hide();
+    }
+    windmap_active = true;
     map.plugin('AMap.CustomLayer', function () {
         let canvas = document.createElement('canvas');
+        canvas.id = "windwind";
         windmap = new AMap.CustomLayer(canvas, {
             zooms: [3, 10],
             alwaysRender: true,//缩放过程中是否重绘，复杂绘制建议设为false
             zIndex: 120
         });
-        //windmap.setAttribute("id", "wind_layer");
         let onRender = function () {
             let retina = AMap.Browser.retina;
             let size = map.getSize();//resize
@@ -341,7 +344,7 @@ function addLayer(data, map) {
         }
         windmap.render = onRender;
         windmap.setMap(map);
-        console.log(windmap);
+        //console.log(windmap);
     });
 }
 
@@ -451,30 +454,30 @@ windmap_show = _ => {
         addLayer(dataSet.data, map);
         windmap_active = true;
     }
+    else{
+        addLayer(dataSet.data, map); // refresh the layer
+    }
+    document.querySelector("#windmap-toggle").textContent = "隐藏风向";
 }
-windmap_show()
 
 windmap_hide = _ => {
     if (windmap_active === true) {
-        let current_layers = map.getLayers();
-        console.log(current_layers[3]);
-        if (current_layers[3] != undefined) {
-            map.remove(current_layers[3]); // 因为自定义图层：风向图层 是加在current_layer[3]处的
-        }
+        document.querySelector("#windwind").remove();
+        document.querySelector("#windmap-toggle").textContent = "显示风向";
     }
     windmap_active = false;
 }
 
 toggleWindmap = _ => {
+    // let current_layers = map.getLayers();
+    // console.log("Toogle windmap:", current_layers);
     if (windmap === undefined) {
         return;
     }
     if (windmap_active === true) {
         windmap_hide();
-        document.querySelector("#windmap-toggle").textContent = "显示风向";
     } else {
         windmap_show();
-        document.querySelector("#windmap-toggle").textContent = "隐藏风向";
     }
 }
 

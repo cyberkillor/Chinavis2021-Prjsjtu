@@ -119,9 +119,9 @@ class ChartTimelineZoomable {
             .attr('fill', 'white');
 
         this.monthLabel
-            .attr('text-anchor', 'middle')
+            .attr('text-anchor', 'start')
             .attr('alignment-baseline', 'middle')
-            .attr('transform', 'translate(' + margin.left + ' ' + (height - margin.bottom - 40) + ') scale(1.5)')
+            .attr('transform', 'translate(' + (width * 0.03) + ' ' + (height - margin.bottom - 40) + ') scale(1.5)')
             .text(isChoosingMonth? '' : defaultDate.getMonth()+1+'月');
 
         this.cityLabel

@@ -127,7 +127,7 @@ var ChartTimelineZoomable = function () {
             // update chart content
             this.backgroudLine.attr('transform', 'translate(' + margin.left + ' ' + (height - margin.bottom) + ')').attr('width', width - margin.right - margin.left).attr('height', '1').attr('fill', 'white');
 
-            this.monthLabel.attr('text-anchor', 'middle').attr('alignment-baseline', 'middle').attr('transform', 'translate(' + margin.left + ' ' + (height - margin.bottom - 40) + ') scale(1.5)').text(isChoosingMonth ? '' : defaultDate.getMonth() + 1 + '月');
+            this.monthLabel.attr('text-anchor', 'start').attr('alignment-baseline', 'middle').attr('transform', 'translate(' + width * 0.03 + ' ' + (height - margin.bottom - 40) + ') scale(1.5)').text(isChoosingMonth ? '' : defaultDate.getMonth() + 1 + '月');
 
             this.cityLabel.attr('text-anchor', 'start').attr('alignment-baseline', 'middle').attr('transform', 'translate(' + (margin.left + 100) + ' ' + (height - margin.bottom - 40) + ') scale(1)').text(city.province == null ? '' : city.province + ' ' + city.city);
 

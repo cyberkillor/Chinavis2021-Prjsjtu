@@ -134,7 +134,7 @@ function fetchData() {
                 dataSet.data.push({
                     "lng": d.lon,
                     "lat": d.lat,
-                    "count": d[pollutant],
+                    "count": d[pollutant] - ((pollutant === "temp") ? 273.15 : 0),
                     "u": d.u,
                     "v": d.v
                 })

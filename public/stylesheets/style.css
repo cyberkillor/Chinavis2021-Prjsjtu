@@ -280,3 +280,14 @@ li{
   font-weight: bold;
   font-size: 3.2vw;
 }
+
+#srcSelector {
+  color: #25A5F7;
+  font-size: 12px;
+}
+
+#srcSelector img {
+  width: 1vw;
+  height: 1vw;
+  padding-right: 5px;
+}

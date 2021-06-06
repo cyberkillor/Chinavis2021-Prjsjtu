@@ -272,11 +272,21 @@ li{
 
 #year-select {
   background:none;
-  width: 10vw;
   margin: 5px;
   line-height:28px;
   border: none;
   text-align: left;
   font-weight: bold;
   font-size: 3.2vw;
+}
+
+#srcSelector {
+  color: #25A5F7;
+  font-size: 12px;
+}
+
+#srcSelector img {
+  width: 1vw;
+  height: 1vw;
+  padding-right: 5px;
 }

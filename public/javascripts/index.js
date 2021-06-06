@@ -311,7 +311,8 @@ let pollution_source = new AMap.MassMarks(pollutant_company, {
     alwaysRender: false,
     style: styleObject,
     cursor: "pointer",
-    zooms: [map_minimumZoom, 18]
+    zooms: [map_minimumZoom, 18],
+    opacity: 1
 });
 pollution_source.setMap(map);
 
@@ -331,6 +332,7 @@ pollutant_company.toggle = _ => {
         pollution_source.hide();
         pollutant_company.active = false;
         document.querySelector("#pollutant-company-toggle").textContent = "显示污染源";
+        document.querySelector("#srcSelector").innerHTML = null;
     } else {
         if (map.getZoom() < map_minimumZoom) {
             console.log("请放大地图");
@@ -338,8 +340,39 @@ pollutant_company.toggle = _ => {
             pollution_source.show();
             pollutant_company.active = true;
             document.querySelector("#pollutant-company-toggle").textContent = "隐藏污染源";
+            genPolluSrcSelector();
         }
     }
+}
+var srcChecked = [true, true, true, true, true];
+function genPolluSrcSelector() {
+    var container = document.querySelector("#srcSelector");
+    let choice = [" 废气企业", " 重金属企业", " 禽畜养殖场", " 污水处理厂", " 废水企业"];
+    let imgs = ["images/air.png", "images/factory.png", "images/farm.png", "images/sewage.png", "images/water.png"];
+    choice.forEach((t, idx) => {
+        input = document.createElement("input");
+        input.type = "checkbox";
+        input.id = t;
+        input.value = idx;
+        if (srcChecked[idx]) {
+            input.checked = true;
+        }
+        input.addEventListener("change", e => {
+            var checkbox = e.target;
+            srcChecked[checkbox.value] = !srcChecked[checkbox.value];
+            pollution_source.setData(pollutant_company.filter(e => srcChecked[e.style]));
+        })
+        label = document.createElement("label");
+        label.setAttribute("for", t);
+        label.textContent = t;
+        img = document.createElement("img");
+        img.src = imgs[idx];
+        div = document.createElement("div");
+        div.append(img);
+        div.append(input);
+        div.append(label);
+        container.append(div);
+    })
 }
 
 heatmap_active = false

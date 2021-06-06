@@ -5,7 +5,7 @@ const path = require("path");
 // https://github.com/JoshuaWise/better-sqlite3/blob/HEAD/docs/api.md
 
 // 建立数据库连接
-let f = path.join(__dirname + "/../data/data_test.db.nosync");
+let f = path.join(__dirname, "../data/data_test.db.nosync");
 const db = new Database(f, {
     verbose: console.log,
     readonly: true

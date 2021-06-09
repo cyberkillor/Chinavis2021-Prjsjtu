@@ -333,6 +333,7 @@ pollutant_company.toggle = _ => {
         pollutant_company.active = false;
         document.querySelector("#pollutant-company-toggle").textContent = "显示污染源";
         document.querySelector("#srcSelector").innerHTML = null;
+        marker.setLabel();
     } else {
         if (map.getZoom() < map_minimumZoom) {
             console.log("请放大地图");

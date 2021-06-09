@@ -13,77 +13,6 @@
 \usepackage{lstautogobble}
 \usepackage{subfig}
 
-\definecolor{dkgreen}{rgb}{0,0.6,0}
-\definecolor{gray}{rgb}{0.5,0.5,0.5}
-\definecolor{mauve}{rgb}{0.58,0,0.82}
-
-\lstset{frame=tb,
-    language            = C,
-    aboveskip           = 3mm,
-    belowskip           = 5mm,
-    showstringspaces    = false,
-    columns             = flexible,
-    basicstyle          = {\small\ttfamily},
-    numbers             = none,
-    numberstyle         = \tiny\color{gray},
-    keywordstyle        = \color{blue},
-    commentstyle        = \color{dkgreen},
-    stringstyle         = \color{mauve},
-    breaklines          = true,
-    breakatwhitespace   = true,
-    tabsize             = 3,
-    numbers             = left,
-    numberblanklines    = true,
-    firstnumber         = 1,
-    numberstyle         = \scriptsize\color{black},
-    numbersep           = 12pt,
-    escapeinside        = ||,
-    mathescape          = true,
-    autogobble          = true
-}
-
-\usepackage{xcolor}
-
-\definecolor{codegreen}{rgb}{0,0.6,0}
-\definecolor{codegray}{rgb}{0.5,0.5,0.5}
-\definecolor{codepurple}{rgb}{0.58,0,0.82}
-\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
-
-\lstdefinestyle{mystyle}{
-    backgroundcolor=\color{backcolour},
-    commentstyle=\color{codegreen},
-    keywordstyle=\color{magenta},
-    numberstyle=\tiny\color{codegray},
-    stringstyle=\color{codepurple},
-    basicstyle=\ttfamily\footnotesize,
-    breaklines=true,
-    captionpos=b,
-    keepspaces=true,
-    showspaces=false,
-    showstringspaces=false,
-    showtabs=false,
-    tabsize=4
-}
-
-\lstset{style=mystyle}
-\let\origthelstnumber\thelstnumber
-\makeatletter
-\newcommand*\Suppressnumber{%
-  \lst@AddToHook{OnNewLine}{%
-    \let\thelstnumber\relax%
-     \advance\c@lstnumber-\@ne\relax%
-    }%
-}
-
-\newcommand*\Reactivatenumber[1]{%
-  \setcounter{lstnumber}{\numexpr#1-1\relax}
-  \lst@AddToHook{OnNewLine}{%
-   \let\thelstnumber\origthelstnumber%
-   \refstepcounter{lstnumber}
-  }%
-}
-
-
 \makeatother
 \hypersetup{
     colorlinks=true,
@@ -125,10 +54,10 @@
         \item 团队成员：
         \begin{enumerate}
             \item 方志成，上海交通大学，fangzhicheng@stju.edu.cn，队长
-            \item 黄霖，上海交通大学，@stju.edu.cn
-            \item 陈雪韬，上海交通大学，@stju.edu.cn
+            \item 黄霖，上海交通大学，h1999@stju.edu.cn
+            \item 陈雪韬，上海交通大学，xgppt0106@stju.edu.cn
             \item 陈思贝，上海交通大学，tonychen21@stju.edu.cn
-            \item 董笑菊，上海交通大学，@stju.edu.cn，指导老师
+            \item 董笑菊，上海交通大学，dong-xj@cs.stju.edu.cn，指导老师
         \end{enumerate}
         \item 团队成员是否与报名表一致：是
         \item 是否学生队：是
@@ -197,7 +126,7 @@
     \subsection{热力图}
 	热力图通过高德地图中的heatmap组件实现。用户首先在左边按钮处选择污染指标，再在下边栏目中选定对应的时间，系统会通过SQL语句自动读取对应时间下该污染物指标的数据，并实时地反映到主地图上。而在右侧栏中，用户可以选择显示或隐藏热力图，增加了系统的实用性。
 	\par
-对于heatmap组件，其可视范围可根据实际效果进行设定；而对于具体的热力点，其半径同样可以根据实际需求进行设定
+对于heatmap组件，其可视范围可根据实际效果进行设定；而对于具体的热力点，其半径同样可以根据实际需求进行设定。\\
     
 
     \subsection{风向图}
@@ -213,7 +142,7 @@
         \label{fig:wind_map1}
     \end{figure}
     
-    我们可以通过风向图和污染物热力图来查看风对污染物扩散造成的影响。如图 \ref{fig:wind_map1} ，哈尔滨 1 日风向图中所示，哈尔滨该天 $\mathrm{PM}_{2.5}$ 污染浓度积聚较高，这与哈尔滨该天的风有关：该天风速并不是很大，风向也较为紊乱无序，所以可以判断污染物在该地还会停留较多的时间；与此相比，在哈尔滨 2 日风向图与污染物热力图（图 \ref{fig:wind_map2}）中，哈尔滨迎来了西北风，整体的 $\mathrm{PM}_{2.5}$ 污染物向东南方向扩散。
+    我们可以通过风向图和污染物热力图来查看风对污染物扩散造成的影响。如图 \ref{fig:wind_map1} ，哈尔滨 1 日风向图中所示，哈尔滨该天 $\mathrm{PM}_{2.5}$ 污染浓度积聚较高，这与哈尔滨该天的风有关：该天风速并不是很大，风向也较为紊乱无序，所以可以判断污染物在该地还会停留较多的时间；与此相比，在哈尔滨 2 日风向图与污染物热力图（图 \ref{fig:wind_map2}）中，哈尔滨迎来了西北风，整体的 $\mathrm{PM}_{2.5}$ 污染物向东南方向扩散。\\
     
     \begin{figure}[h!]
         \centering
@@ -324,7 +253,7 @@
 	\par    
     查看地形图可知，石家庄西倚太行山脉，山脉阻挡了西北风吹过石家庄主城区，造成了石家庄冬季污染易积聚不能扩散，从而较夏季严重的特征；而石家庄冬季盛行的西北风是由西伯利亚冷高压在我国大多数地区引起的。
     \par 
-    针对石家庄在冬季污染物扩散较为艰难的特点，石家庄要在冬季对污染物排放进行限制，并尤为注意风向对于污染物扩散的影响。
+    针对石家庄在冬季污染物扩散较为艰难的特点，石家庄要在冬季对污染物排放进行限制，并尤为注意风向对于污染物扩散的影响。\\
     \begin{figure}[h!]
         \centering
         \includegraphics[width=15cm,keepaspectratio]{images/shijiazhuang_wind1.png}

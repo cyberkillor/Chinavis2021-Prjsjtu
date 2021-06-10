@@ -12,6 +12,7 @@ git clone https://github.com/cyberkillor/Chinavis2021test.git
 npm i
 npm start
 ```
+Visit at localhost, usually port 3000
 
 ## Example
 

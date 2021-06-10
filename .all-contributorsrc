@@ -1,0 +1,58 @@
+{
+  "projectName": "Chinavis2021",
+  "projectOwner": "cyberkillor",
+  "repoType": "github",
+  "repoHost": "https://github.com",
+  "files": [
+    "README.md"
+  ],
+  "imageSize": 100,
+  "commit": false,
+  "commitConvention": "none",
+  "contributors": [
+    {
+      "login": "TonyCSB",
+      "name": "Tony Chen",
+      "avatar_url": "https://avatars.githubusercontent.com/u/21008477?v=4",
+      "profile": "https://resume.tonychen.page/",
+      "contributions": [
+        "code",
+        "infra",
+        "bug"
+      ]
+    },
+    {
+      "login": "cyberkillor",
+      "name": "FZC",
+      "avatar_url": "https://avatars.githubusercontent.com/u/48385052?v=4",
+      "profile": "https://github.com/cyberkillor",
+      "contributions": [
+        "code",
+        "doc",
+        "maintenance"
+      ]
+    },
+    {
+      "login": "chenxuetao",
+      "name": "chenxuetao",
+      "avatar_url": "https://avatars.githubusercontent.com/u/61527709?v=4",
+      "profile": "https://github.com/chenxuetao",
+      "contributions": [
+        "code",
+        "ideas"
+      ]
+    },
+    {
+      "login": "1999foxes",
+      "name": "1999foxes",
+      "avatar_url": "https://avatars.githubusercontent.com/u/29877069?v=4",
+      "profile": "https://github.com/1999foxes",
+      "contributions": [
+        "code",
+        "ideas",
+        "design"
+      ]
+    }
+  ],
+  "contributorsPerLine": 7
+}

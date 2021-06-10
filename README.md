@@ -8,7 +8,7 @@
 Need local database to run the project
 
 ```bash
-git clone https://github.com/cyberkillor/Chinavis2021test.git
+https://github.com/cyberkillor/Chinavis2021-Prjsjtu.git
 npm i
 npm start
 ```
